@@ -1,0 +1,5 @@
+*.user
+
+[Dd]ebug/
+
+.vs/
