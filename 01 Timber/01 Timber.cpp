@@ -29,6 +29,9 @@ int main() {
     spriteBee.setTexture(textureBee);
     spriteBee.setPosition(0, 800);
 
+    bool beeActive = false;
+    float beeSpeed = 0.0f;
+
     Texture textureCloud;
     textureCloud.loadFromFile("graphics/cloud.png");
     Sprite spriteCloud1;
@@ -41,9 +44,32 @@ int main() {
     spriteCloud3.setTexture(textureCloud);
     spriteCloud3.setPosition(0, 500);
 
+    Clock clock;
+
     while (window.isOpen()) {
         if (Keyboard::isKeyPressed(Keyboard::Escape)) {
             window.close();
+        }
+
+        Time dt = clock.restart();
+
+        if (!beeActive) {
+            srand((int)time(0));
+            beeSpeed = (rand() % 200) + 200;
+
+            srand((int)time(0) * 10);
+            float height = (rand() % 500) + 500;
+            spriteBee.setPosition(SCREEN_WIDTH + 200, height);
+            beeActive = true;
+        }
+        else {
+            spriteBee.setPosition(
+                spriteBee.getPosition().x - (beeSpeed * dt.asSeconds()),
+                spriteBee.getPosition().y
+            );
+            if (spriteBee.getPosition().x < -100) {
+                beeActive = false;
+            }
         }
 
         window.clear();
