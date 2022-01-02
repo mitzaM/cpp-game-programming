@@ -1,3 +1,4 @@
+#include <sstream>
 #include <SFML/Graphics.hpp>
 
 using namespace sf;
@@ -5,12 +6,12 @@ using namespace sf;
 void drawScene(RenderWindow &window);
 void initSprite(Texture &texture, Sprite &sprite, float positionX, float positionY);
 
-const int NUM_SPRITES = 6;
+const int NUM_DRAWABLES = 8;
 const int SCREEN_WIDTH = 1920;
 const int SCREEN_HEIGHT = 1080;
 
-Sprite *sprites[NUM_SPRITES];
-int loaded_sprites = 0;
+Drawable *drawables[NUM_DRAWABLES];
+int loaded_drawables = 0;
 
 int main() {
     VideoMode vm(SCREEN_WIDTH, SCREEN_HEIGHT);
@@ -39,9 +40,8 @@ int main() {
 
     Texture textureTree;
     textureTree.loadFromFile("graphics/tree2.png");
-    float treeCenterX = (float)((SCREEN_WIDTH - textureTree.getSize().x) / 2);
     Sprite spriteTree;
-    initSprite(textureTree, spriteTree, treeCenterX, 0);
+    initSprite(textureTree, spriteTree, (SCREEN_WIDTH - textureTree.getSize().x) / 2.0f, 0);
 
     Texture textureBee;
     textureBee.loadFromFile("graphics/bee.png");
@@ -54,6 +54,32 @@ int main() {
     Clock clock;
 
     bool paused = true;
+    int score = 0;
+
+    Font font;
+    font.loadFromFile("fonts/KOMIKAP_.ttf");
+
+    Text messageText;
+    messageText.setFont(font);
+    messageText.setString("Press Enter to start!");
+    messageText.setCharacterSize(75);
+    messageText.setFillColor(Color::White);
+
+    FloatRect textRect = messageText.getLocalBounds();
+    messageText.setOrigin(
+        textRect.left + textRect.width / 2.0f,
+        textRect.top + textRect.height / 2.0f
+    );
+    messageText.setPosition(SCREEN_WIDTH / 2.0f, SCREEN_HEIGHT / 2.0f);
+    drawables[loaded_drawables++] = &messageText;
+
+    Text scoreText;
+    scoreText.setFont(font);
+    scoreText.setString("Score = 0");
+    scoreText.setCharacterSize(100);
+    scoreText.setFillColor(Color::White);
+    scoreText.setPosition(20, 20);
+    drawables[loaded_drawables++] = &scoreText;
 
     while (window.isOpen()) {
         if (Keyboard::isKeyPressed(Keyboard::Escape)) {
@@ -69,10 +95,10 @@ int main() {
 
             if (!beeActive) {
                 srand((int)time(0));
-                beeSpeed = (float)(rand() % 200 + 200);
+                beeSpeed = rand() % 200 + 200.0f;
 
                 srand((int)time(0) * 10);
-                float height = (float)(rand() % 500 + 500);
+                float height = rand() % 500 + 500.0f;
                 spriteBee.setPosition(SCREEN_WIDTH + 200, height);
                 beeActive = true;
             }
@@ -91,8 +117,7 @@ int main() {
                 cloud1Speed = (float)(rand() % 200);
 
                 srand((int)time(0) * 10);
-                float height = (float)(rand() % 150);
-                spriteCloud1.setPosition(-200, height);
+                spriteCloud1.setPosition(-200, (float)(rand() % 150));
                 cloud1Active = true;
             }
             else {
@@ -110,8 +135,7 @@ int main() {
                 cloud2Speed = (float)(rand() % 200);
 
                 srand((int)time(0) * 20);
-                float height = (float)(rand() % 300 - 150);
-                spriteCloud2.setPosition(-200, height);
+                spriteCloud2.setPosition(-200, (float)(rand() % 300 - 150));
                 cloud2Active = true;
             }
             else {
@@ -129,8 +153,7 @@ int main() {
                 cloud3Speed = (float)(rand() % 200);
 
                 srand((int)time(0) * 30);
-                float height = (float)(rand() % 450 - 150);
-                spriteCloud3.setPosition(-200, height);
+                spriteCloud3.setPosition(-200, (float)(rand() % 450 - 150));
                 cloud3Active = true;
             }
             else {
@@ -142,28 +165,28 @@ int main() {
                     cloud3Active = false;
                 }
             }
+
+            std::stringstream ss;
+            ss << "Score = " << score;
+            scoreText.setString(ss.str());
         }
 
         drawScene(window);
     }
-
     return 0;
 }
 
-void drawScene(RenderWindow &window)
-{
+void drawScene(RenderWindow &window) {
     window.clear();
-
-    for (int i = 0; i < NUM_SPRITES; i++) {
-        window.draw(*sprites[i]);
+    for (int i = 0; i < loaded_drawables; i++) {
+        window.draw(*drawables[i]);
     }
-
     window.display();
 }
 
 void initSprite(Texture& texture, Sprite& sprite, float positionX, float positionY) {
     sprite.setTexture(texture);
     sprite.setPosition(positionX, positionY);
-    sprites[loaded_sprites] = &sprite;
-    loaded_sprites++;
+
+    drawables[loaded_drawables++] = &sprite;
 }
