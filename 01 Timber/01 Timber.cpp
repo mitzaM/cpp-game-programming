@@ -1,16 +1,27 @@
+#include <sstream>
 #include <SFML/Graphics.hpp>
 
 using namespace sf;
 
-void drawScene(RenderWindow &window);
-void initSprite(Texture &texture, Sprite &sprite, float positionX, float positionY);
+void centerText(Text& text);
+void drawScene(RenderWindow& window, bool paused);
+void initSprite(Texture& texture, Sprite& sprite, float positionX, float positionY);
+void moveBranches();
+void updateBranches(int seed);
 
-const int NUM_SPRITES = 6;
+const int NUM_BRANCHES = 6;
+const int NUM_DRAWABLES = 8 + NUM_BRANCHES;
+const int NUM_MENU_TEXT = 1;
 const int SCREEN_WIDTH = 1920;
 const int SCREEN_HEIGHT = 1080;
 
-Sprite *sprites[NUM_SPRITES];
-int loaded_sprites = 0;
+Sprite branches[NUM_BRANCHES];
+Drawable* drawables[NUM_DRAWABLES];
+int loaded_drawables = 0;
+Text* menu_text[NUM_MENU_TEXT];
+
+enum class side { LEFT, RIGHT, NONE };
+side branchPositions[NUM_BRANCHES];
 
 int main() {
     VideoMode vm(SCREEN_WIDTH, SCREEN_HEIGHT);
@@ -37,11 +48,17 @@ int main() {
     bool cloud3Active = false;
     float cloud3Speed = 0.0f;
 
+    Texture textureBranch;
+    textureBranch.loadFromFile("graphics/branch.png");
+    for (int i = 0; i < NUM_BRANCHES; i++) {
+        initSprite(textureBranch, branches[i], -2000, -2000);
+        branches[i].setOrigin(220, 20);
+    }
+
     Texture textureTree;
     textureTree.loadFromFile("graphics/tree2.png");
-    float treeCenterX = (float)((SCREEN_WIDTH - textureTree.getSize().x) / 2);
     Sprite spriteTree;
-    initSprite(textureTree, spriteTree, treeCenterX, 0);
+    initSprite(textureTree, spriteTree, (SCREEN_WIDTH - textureTree.getSize().x) / 2.0f, 0);
 
     Texture textureBee;
     textureBee.loadFromFile("graphics/bee.png");
@@ -54,6 +71,40 @@ int main() {
     Clock clock;
 
     bool paused = true;
+    int score = 0;
+
+    Font font;
+    font.loadFromFile("fonts/KOMIKAP_.ttf");
+
+    Text messageText;
+    messageText.setFont(font);
+    messageText.setString("Press Enter to start!");
+    messageText.setCharacterSize(75);
+    messageText.setFillColor(Color::White);
+    centerText(messageText);
+    menu_text[0] = &messageText;
+
+    Text scoreText;
+    scoreText.setFont(font);
+    scoreText.setString("Score = 0");
+    scoreText.setCharacterSize(100);
+    scoreText.setFillColor(Color::White);
+    scoreText.setPosition(20, 20);
+    drawables[loaded_drawables++] = &scoreText;
+
+    RectangleShape timeBar;
+    float timeBarStartWidth = 400;
+    float timeBarHeight = 80;
+    timeBar.setSize(Vector2f(timeBarStartWidth, timeBarHeight));
+    timeBar.setFillColor(Color::Red);
+    timeBar.setPosition(
+        (SCREEN_WIDTH - timeBarStartWidth) / 2.0f,
+        SCREEN_HEIGHT - 100
+    );
+    drawables[loaded_drawables++] = &timeBar;
+    Time gameTimeTotal;
+    float timeRemaining = 6.0f;
+    float timeBarWidthPerSecond = timeBarStartWidth / timeRemaining;
 
     while (window.isOpen()) {
         if (Keyboard::isKeyPressed(Keyboard::Escape)) {
@@ -62,17 +113,28 @@ int main() {
 
         if (Keyboard::isKeyPressed(Keyboard::Return)) {
             paused = false;
+            score = 0;
+            timeRemaining = 6.0f;
         }
 
         if (!paused) {
             Time dt = clock.restart();
 
+            timeRemaining -= dt.asSeconds();
+            timeBar.setSize(Vector2f(timeBarWidthPerSecond * timeRemaining, timeBarHeight));
+
+            if (timeRemaining <= 0.0f) {
+                paused = true;
+                messageText.setString("Out of time!!");
+                centerText(messageText);
+            }
+
             if (!beeActive) {
                 srand((int)time(0));
-                beeSpeed = (float)(rand() % 200 + 200);
+                beeSpeed = rand() % 200 + 200.0f;
 
                 srand((int)time(0) * 10);
-                float height = (float)(rand() % 500 + 500);
+                float height = rand() % 500 + 500.0f;
                 spriteBee.setPosition(SCREEN_WIDTH + 200, height);
                 beeActive = true;
             }
@@ -88,11 +150,10 @@ int main() {
 
             if (!cloud1Active) {
                 srand((int)time(0) * 10);
-                cloud1Speed = (float)(rand() % 200);
+                cloud1Speed = rand() % 200 + 1.0f;
 
                 srand((int)time(0) * 10);
-                float height = (float)(rand() % 150);
-                spriteCloud1.setPosition(-200, height);
+                spriteCloud1.setPosition(-200, (float)(rand() % 150));
                 cloud1Active = true;
             }
             else {
@@ -107,11 +168,10 @@ int main() {
 
             if (!cloud2Active) {
                 srand((int)time(0) * 20);
-                cloud2Speed = (float)(rand() % 200);
+                cloud2Speed = rand() % 200 + 1.0f;
 
                 srand((int)time(0) * 20);
-                float height = (float)(rand() % 300 - 150);
-                spriteCloud2.setPosition(-200, height);
+                spriteCloud2.setPosition(-200, (float)(rand() % 300 - 150));
                 cloud2Active = true;
             }
             else {
@@ -126,11 +186,10 @@ int main() {
 
             if (!cloud3Active) {
                 srand((int)time(0) * 30);
-                cloud3Speed = (float)(rand() % 200);
+                cloud3Speed = rand() % 200 + 1.0f;
 
                 srand((int)time(0) * 30);
-                float height = (float)(rand() % 450 - 150);
-                spriteCloud3.setPosition(-200, height);
+                spriteCloud3.setPosition(-200, (float)(rand() % 450 - 150));
                 cloud3Active = true;
             }
             else {
@@ -142,28 +201,85 @@ int main() {
                     cloud3Active = false;
                 }
             }
+
+            std::stringstream ss;
+            ss << "Score = " << score;
+            scoreText.setString(ss.str());
+
+            moveBranches();
         }
 
-        drawScene(window);
+        drawScene(window, paused);
     }
-
     return 0;
 }
 
-void drawScene(RenderWindow &window)
-{
-    window.clear();
+void centerText(Text& text) {
+    FloatRect textRect = text.getLocalBounds();
+    text.setOrigin(
+        textRect.left + textRect.width / 2.0f,
+        textRect.top + textRect.height / 2.0f
+    );
+    text.setPosition(SCREEN_WIDTH / 2.0f, SCREEN_HEIGHT / 2.0f);
+}
 
-    for (int i = 0; i < NUM_SPRITES; i++) {
-        window.draw(*sprites[i]);
+void drawScene(RenderWindow& window, bool paused) {
+    window.clear();
+    for (int i = 0; i < loaded_drawables; i++) {
+        window.draw(*drawables[i]);
     }
 
+    if (paused) {
+        for (int i = 0; i < NUM_MENU_TEXT; i++) {
+            window.draw(*menu_text[i]);
+        }
+    }
     window.display();
 }
 
 void initSprite(Texture& texture, Sprite& sprite, float positionX, float positionY) {
     sprite.setTexture(texture);
     sprite.setPosition(positionX, positionY);
-    sprites[loaded_sprites] = &sprite;
-    loaded_sprites++;
+
+    drawables[loaded_drawables++] = &sprite;
+}
+
+void moveBranches() {
+    for (int i = 0; i < NUM_BRANCHES; i++) {
+        float height = i * 150.0f;
+        switch (branchPositions[i]) {
+        case side::LEFT:
+            branches[i].setPosition(610, height);
+            branches[i].setRotation(180);
+            break;
+        case side::RIGHT:
+            branches[i].setPosition(1330, height);
+            branches[i].setRotation(0);
+            break;
+        default:
+            branches[i].setPosition(3000, height);
+            break;
+        }
+    }
+}
+
+void updateBranches(int seed) {
+    for (int j = NUM_BRANCHES - 1; j > 0; j--) {
+        branchPositions[j] = branchPositions[j - 1];
+    }
+
+    srand((int)time(0) + seed);
+    int r = rand() % 5;
+
+    switch (r) {
+    case 0:
+        branchPositions[0] = side::LEFT;
+        break;
+    case 1:
+        branchPositions[0] = side::RIGHT;
+        break;
+    default:
+        branchPositions[0] = side::NONE;
+        break;
+    }
 }
