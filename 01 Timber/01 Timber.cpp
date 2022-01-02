@@ -3,10 +3,11 @@
 
 using namespace sf;
 
+void centerText(Text& text);
 void drawScene(RenderWindow& window, bool paused);
 void initSprite(Texture& texture, Sprite& sprite, float positionX, float positionY);
 
-const int NUM_DRAWABLES = 7;
+const int NUM_DRAWABLES = 8;
 const int NUM_MENU_TEXT = 1;
 const int SCREEN_WIDTH = 1920;
 const int SCREEN_HEIGHT = 1080;
@@ -66,13 +67,7 @@ int main() {
     messageText.setString("Press Enter to start!");
     messageText.setCharacterSize(75);
     messageText.setFillColor(Color::White);
-
-    FloatRect textRect = messageText.getLocalBounds();
-    messageText.setOrigin(
-        textRect.left + textRect.width / 2.0f,
-        textRect.top + textRect.height / 2.0f
-    );
-    messageText.setPosition(SCREEN_WIDTH / 2.0f, SCREEN_HEIGHT / 2.0f);
+    centerText(messageText);
     menu_text[0] = &messageText;
 
     Text scoreText;
@@ -83,6 +78,20 @@ int main() {
     scoreText.setPosition(20, 20);
     drawables[loaded_drawables++] = &scoreText;
 
+    RectangleShape timeBar;
+    float timeBarStartWidth = 400;
+    float timeBarHeight = 80;
+    timeBar.setSize(Vector2f(timeBarStartWidth, timeBarHeight));
+    timeBar.setFillColor(Color::Red);
+    timeBar.setPosition(
+        (SCREEN_WIDTH - timeBarStartWidth) / 2.0f,
+        SCREEN_HEIGHT - 100
+    );
+    drawables[loaded_drawables++] = &timeBar;
+    Time gameTimeTotal;
+    float timeRemaining = 6.0f;
+    float timeBarWidthPerSecond = timeBarStartWidth / timeRemaining;
+
     while (window.isOpen()) {
         if (Keyboard::isKeyPressed(Keyboard::Escape)) {
             window.close();
@@ -90,10 +99,21 @@ int main() {
 
         if (Keyboard::isKeyPressed(Keyboard::Return)) {
             paused = false;
+            score = 0;
+            timeRemaining = 6.0f;
         }
 
         if (!paused) {
             Time dt = clock.restart();
+
+            timeRemaining -= dt.asSeconds();
+            timeBar.setSize(Vector2f(timeBarWidthPerSecond * timeRemaining, timeBarHeight));
+
+            if (timeRemaining <= 0.0f) {
+                paused = true;
+                messageText.setString("Out of time!!");
+                centerText(messageText);
+            }
 
             if (!beeActive) {
                 srand((int)time(0));
@@ -176,6 +196,15 @@ int main() {
         drawScene(window, paused);
     }
     return 0;
+}
+
+void centerText(Text& text) {
+    FloatRect textRect = text.getLocalBounds();
+    text.setOrigin(
+        textRect.left + textRect.width / 2.0f,
+        textRect.top + textRect.height / 2.0f
+    );
+    text.setPosition(SCREEN_WIDTH / 2.0f, SCREEN_HEIGHT / 2.0f);
 }
 
 void drawScene(RenderWindow& window, bool paused) {
