@@ -3,15 +3,17 @@
 
 using namespace sf;
 
-void drawScene(RenderWindow &window);
-void initSprite(Texture &texture, Sprite &sprite, float positionX, float positionY);
+void drawScene(RenderWindow& window, bool paused);
+void initSprite(Texture& texture, Sprite& sprite, float positionX, float positionY);
 
-const int NUM_DRAWABLES = 8;
+const int NUM_DRAWABLES = 7;
+const int NUM_MENU_TEXT = 1;
 const int SCREEN_WIDTH = 1920;
 const int SCREEN_HEIGHT = 1080;
 
-Drawable *drawables[NUM_DRAWABLES];
+Drawable* drawables[NUM_DRAWABLES];
 int loaded_drawables = 0;
+Text* menu_text[NUM_MENU_TEXT];
 
 int main() {
     VideoMode vm(SCREEN_WIDTH, SCREEN_HEIGHT);
@@ -71,7 +73,7 @@ int main() {
         textRect.top + textRect.height / 2.0f
     );
     messageText.setPosition(SCREEN_WIDTH / 2.0f, SCREEN_HEIGHT / 2.0f);
-    drawables[loaded_drawables++] = &messageText;
+    menu_text[0] = &messageText;
 
     Text scoreText;
     scoreText.setFont(font);
@@ -114,7 +116,7 @@ int main() {
 
             if (!cloud1Active) {
                 srand((int)time(0) * 10);
-                cloud1Speed = (float)(rand() % 200);
+                cloud1Speed = rand() % 200 + 1.0f;
 
                 srand((int)time(0) * 10);
                 spriteCloud1.setPosition(-200, (float)(rand() % 150));
@@ -132,7 +134,7 @@ int main() {
 
             if (!cloud2Active) {
                 srand((int)time(0) * 20);
-                cloud2Speed = (float)(rand() % 200);
+                cloud2Speed = rand() % 200 + 1.0f;
 
                 srand((int)time(0) * 20);
                 spriteCloud2.setPosition(-200, (float)(rand() % 300 - 150));
@@ -150,7 +152,7 @@ int main() {
 
             if (!cloud3Active) {
                 srand((int)time(0) * 30);
-                cloud3Speed = (float)(rand() % 200);
+                cloud3Speed = rand() % 200 + 1.0f;
 
                 srand((int)time(0) * 30);
                 spriteCloud3.setPosition(-200, (float)(rand() % 450 - 150));
@@ -171,15 +173,21 @@ int main() {
             scoreText.setString(ss.str());
         }
 
-        drawScene(window);
+        drawScene(window, paused);
     }
     return 0;
 }
 
-void drawScene(RenderWindow &window) {
+void drawScene(RenderWindow& window, bool paused) {
     window.clear();
     for (int i = 0; i < loaded_drawables; i++) {
         window.draw(*drawables[i]);
+    }
+
+    if (paused) {
+        for (int i = 0; i < NUM_MENU_TEXT; i++) {
+            window.draw(*menu_text[i]);
+        }
     }
     window.display();
 }
