@@ -95,6 +95,7 @@ int main() {
 
     Clock clock;
 
+    bool acceptInput = false;
     bool paused = true;
     int score = 0;
 
@@ -132,14 +133,56 @@ int main() {
     float timeBarWidthPerSecond = timeBarStartWidth / timeRemaining;
 
     while (window.isOpen()) {
+        Event event;
+        while (window.pollEvent(event)) {
+            if (event.type == Event::KeyReleased && !paused) {
+                acceptInput = true;
+                spriteAxe.setPosition(2000, spriteAxe.getPosition().y);
+            }
+        }
+
         if (Keyboard::isKeyPressed(Keyboard::Escape)) {
             window.close();
         }
 
         if (Keyboard::isKeyPressed(Keyboard::Return)) {
+            acceptInput = true;
             paused = false;
             score = 0;
             timeRemaining = 6.0f;
+
+            for (int i = 1; i < NUM_BRANCHES; i++) {
+                branchPositions[i] = side::NONE;
+            }
+            spriteRIP.setPosition(675, 2000);
+            spritePlayer.setPosition(580, 720);
+        }
+
+        if (acceptInput) {
+            if (Keyboard::isKeyPressed(Keyboard::Right)) {
+                playerSide = side::RIGHT;
+                score++;
+                timeRemaining += (2 / score) + 0.15f;
+                spriteAxe.setPosition(AXE_POSITION_RIGHT, spriteAxe.getPosition().y);
+                spritePlayer.setPosition(1200, 720);
+                updateBranches(score);
+                spriteLog.setPosition(810, 720);
+                logSpeedX = -5000;
+                logActive = true;
+                acceptInput = false;
+            }
+            if (Keyboard::isKeyPressed(Keyboard::Left)) {
+                playerSide = side::LEFT;
+                score++;
+                timeRemaining += (2 / score) + 0.15f;
+                spriteAxe.setPosition(AXE_POSITION_LEFT, spriteAxe.getPosition().y);
+                spritePlayer.setPosition(580, 720);
+                updateBranches(score);
+                spriteLog.setPosition(810, 720);
+                logSpeedX = 5000;
+                logActive = true;
+                acceptInput = false;
+            }
         }
 
         if (!paused) {
@@ -232,6 +275,18 @@ int main() {
             scoreText.setString(ss.str());
 
             moveBranches();
+
+            if (logActive) {
+                spriteLog.setPosition(
+                    spriteLog.getPosition().x + logSpeedX * dt.asSeconds(),
+                    spriteLog.getPosition().y + logSpeedY * dt.asSeconds()
+                );
+                float logX = spriteLog.getPosition().x;
+                if (logX < -100 || logX > SCREEN_WIDTH + 100) {
+                    logActive = false;
+                    spriteLog.setPosition(810, 720);
+                }
+            }
         }
 
         drawScene(window, paused);
