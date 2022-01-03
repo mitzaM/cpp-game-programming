@@ -10,7 +10,7 @@ void moveBranches();
 void updateBranches(int seed);
 
 const int NUM_BRANCHES = 6;
-const int NUM_DRAWABLES = 8 + NUM_BRANCHES;
+const int NUM_DRAWABLES = 12 + NUM_BRANCHES;
 const int NUM_MENU_TEXT = 1;
 const int SCREEN_WIDTH = 1920;
 const int SCREEN_HEIGHT = 1080;
@@ -60,9 +60,34 @@ int main() {
     Sprite spriteTree;
     initSprite(textureTree, spriteTree, (SCREEN_WIDTH - textureTree.getSize().x) / 2.0f, 0);
 
+    Texture texturePlayer;
+    texturePlayer.loadFromFile("graphics/player.png");
+    Sprite spritePlayer;
+    initSprite(texturePlayer, spritePlayer, 580, 720);
+    side playerSide = side::LEFT;
+
+    Texture textureRIP;
+    textureRIP.loadFromFile("graphics/rip.png");
+    Sprite spriteRIP;
+    initSprite(textureRIP, spriteRIP, 600, 860);
+
+    Texture textureAxe;
+    textureAxe.loadFromFile("graphics/axe.png");
+    Sprite spriteAxe;
+    initSprite(textureAxe, spriteAxe, 700, 830);
+    const float AXE_POSITION_LEFT = 700;
+    const float AXE_POSITION_RIGHT = 1075;
+
+    Texture textureLog;
+    textureLog.loadFromFile("graphics/log.png");
+    Sprite spriteLog;
+    initSprite(textureLog, spriteLog, (SCREEN_WIDTH - textureLog.getSize().x) / 2.0f, 720);
+    bool logActive = false;
+    float logSpeedX = 1000;
+    float logSpeedY = -1500;
+
     Texture textureBee;
     textureBee.loadFromFile("graphics/bee.png");
-
     Sprite spriteBee;
     initSprite(textureBee, spriteBee, 0, 800);
     bool beeActive = false;
