@@ -1,4 +1,5 @@
 #include <sstream>
+#include <SFML/Audio.hpp>
 #include <SFML/Graphics.hpp>
 
 using namespace sf;
@@ -132,6 +133,21 @@ int main() {
     float timeRemaining = 6.0f;
     float timeBarWidthPerSecond = timeBarStartWidth / timeRemaining;
 
+    SoundBuffer chopBuffer;
+    chopBuffer.loadFromFile("sound/chop.wav");
+    Sound chop;
+    chop.setBuffer(chopBuffer);
+
+    SoundBuffer deathBuffer;
+    deathBuffer.loadFromFile("sound/death.wav");
+    Sound death;
+    death.setBuffer(deathBuffer);
+
+    SoundBuffer ootBuffer;
+    ootBuffer.loadFromFile("sound/out_of_time.wav");
+    Sound outOfTime;
+    outOfTime.setBuffer(ootBuffer);
+
     while (window.isOpen()) {
         Event event;
         while (window.pollEvent(event)) {
@@ -170,6 +186,7 @@ int main() {
                 logSpeedX = -5000;
                 logActive = true;
                 acceptInput = false;
+                chop.play();
             }
             if (Keyboard::isKeyPressed(Keyboard::Left)) {
                 playerSide = side::LEFT;
@@ -182,6 +199,7 @@ int main() {
                 logSpeedX = 5000;
                 logActive = true;
                 acceptInput = false;
+                chop.play();
             }
         }
 
@@ -195,6 +213,7 @@ int main() {
                 paused = true;
                 messageText.setString("Out of time!!");
                 centerText(messageText);
+                outOfTime.play();
             }
 
             if (!beeActive) {
@@ -295,6 +314,7 @@ int main() {
                 spritePlayer.setPosition(SCREEN_WIDTH + 100, 660);
                 messageText.setString("SQUISHED!!");
                 centerText(messageText);
+                death.play();
             }
         }
 
