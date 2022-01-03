@@ -287,6 +287,15 @@ int main() {
                     spriteLog.setPosition(810, 720);
                 }
             }
+
+            if (branchPositions[5] == playerSide) {
+                paused = true;
+                acceptInput = false;
+                spriteRIP.setPosition(525, 760);
+                spritePlayer.setPosition(SCREEN_WIDTH + 100, 660);
+                messageText.setString("SQUISHED!!");
+                centerText(messageText);
+            }
         }
 
         drawScene(window, paused);
