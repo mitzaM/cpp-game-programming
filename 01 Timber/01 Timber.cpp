@@ -1,4 +1,5 @@
 #include <sstream>
+#include <SFML/Audio.hpp>
 #include <SFML/Graphics.hpp>
 
 using namespace sf;
@@ -10,7 +11,7 @@ void moveBranches();
 void updateBranches(int seed);
 
 const int NUM_BRANCHES = 6;
-const int NUM_DRAWABLES = 8 + NUM_BRANCHES;
+const int NUM_DRAWABLES = 12 + NUM_BRANCHES;
 const int NUM_MENU_TEXT = 1;
 const int SCREEN_WIDTH = 1920;
 const int SCREEN_HEIGHT = 1080;
@@ -60,9 +61,34 @@ int main() {
     Sprite spriteTree;
     initSprite(textureTree, spriteTree, (SCREEN_WIDTH - textureTree.getSize().x) / 2.0f, 0);
 
+    Texture texturePlayer;
+    texturePlayer.loadFromFile("graphics/player.png");
+    Sprite spritePlayer;
+    initSprite(texturePlayer, spritePlayer, 580, 720);
+    side playerSide = side::LEFT;
+
+    Texture textureRIP;
+    textureRIP.loadFromFile("graphics/rip.png");
+    Sprite spriteRIP;
+    initSprite(textureRIP, spriteRIP, 600, 860);
+
+    Texture textureAxe;
+    textureAxe.loadFromFile("graphics/axe.png");
+    Sprite spriteAxe;
+    initSprite(textureAxe, spriteAxe, 700, 830);
+    const float AXE_POSITION_LEFT = 700;
+    const float AXE_POSITION_RIGHT = 1075;
+
+    Texture textureLog;
+    textureLog.loadFromFile("graphics/log.png");
+    Sprite spriteLog;
+    initSprite(textureLog, spriteLog, (SCREEN_WIDTH - textureLog.getSize().x) / 2.0f, 720);
+    bool logActive = false;
+    float logSpeedX = 1000;
+    float logSpeedY = -1500;
+
     Texture textureBee;
     textureBee.loadFromFile("graphics/bee.png");
-
     Sprite spriteBee;
     initSprite(textureBee, spriteBee, 0, 800);
     bool beeActive = false;
@@ -70,6 +96,7 @@ int main() {
 
     Clock clock;
 
+    bool acceptInput = false;
     bool paused = true;
     int score = 0;
 
@@ -106,15 +133,74 @@ int main() {
     float timeRemaining = 6.0f;
     float timeBarWidthPerSecond = timeBarStartWidth / timeRemaining;
 
+    SoundBuffer chopBuffer;
+    chopBuffer.loadFromFile("sound/chop.wav");
+    Sound chop;
+    chop.setBuffer(chopBuffer);
+
+    SoundBuffer deathBuffer;
+    deathBuffer.loadFromFile("sound/death.wav");
+    Sound death;
+    death.setBuffer(deathBuffer);
+
+    SoundBuffer ootBuffer;
+    ootBuffer.loadFromFile("sound/out_of_time.wav");
+    Sound outOfTime;
+    outOfTime.setBuffer(ootBuffer);
+
     while (window.isOpen()) {
+        Event event;
+        while (window.pollEvent(event)) {
+            if (event.type == Event::KeyReleased && !paused) {
+                acceptInput = true;
+                spriteAxe.setPosition(2000, spriteAxe.getPosition().y);
+            }
+        }
+
         if (Keyboard::isKeyPressed(Keyboard::Escape)) {
             window.close();
         }
 
         if (Keyboard::isKeyPressed(Keyboard::Return)) {
+            acceptInput = true;
             paused = false;
             score = 0;
             timeRemaining = 6.0f;
+
+            for (int i = 1; i < NUM_BRANCHES; i++) {
+                branchPositions[i] = side::NONE;
+            }
+            spriteRIP.setPosition(675, 2000);
+            spritePlayer.setPosition(580, 720);
+        }
+
+        if (acceptInput) {
+            if (Keyboard::isKeyPressed(Keyboard::Right)) {
+                playerSide = side::RIGHT;
+                score++;
+                timeRemaining += (2 / score) + 0.15f;
+                spriteAxe.setPosition(AXE_POSITION_RIGHT, spriteAxe.getPosition().y);
+                spritePlayer.setPosition(1200, 720);
+                updateBranches(score);
+                spriteLog.setPosition(810, 720);
+                logSpeedX = -5000;
+                logActive = true;
+                acceptInput = false;
+                chop.play();
+            }
+            if (Keyboard::isKeyPressed(Keyboard::Left)) {
+                playerSide = side::LEFT;
+                score++;
+                timeRemaining += (2 / score) + 0.15f;
+                spriteAxe.setPosition(AXE_POSITION_LEFT, spriteAxe.getPosition().y);
+                spritePlayer.setPosition(580, 720);
+                updateBranches(score);
+                spriteLog.setPosition(810, 720);
+                logSpeedX = 5000;
+                logActive = true;
+                acceptInput = false;
+                chop.play();
+            }
         }
 
         if (!paused) {
@@ -127,6 +213,7 @@ int main() {
                 paused = true;
                 messageText.setString("Out of time!!");
                 centerText(messageText);
+                outOfTime.play();
             }
 
             if (!beeActive) {
@@ -207,6 +294,28 @@ int main() {
             scoreText.setString(ss.str());
 
             moveBranches();
+
+            if (logActive) {
+                spriteLog.setPosition(
+                    spriteLog.getPosition().x + logSpeedX * dt.asSeconds(),
+                    spriteLog.getPosition().y + logSpeedY * dt.asSeconds()
+                );
+                float logX = spriteLog.getPosition().x;
+                if (logX < -100 || logX > SCREEN_WIDTH + 100) {
+                    logActive = false;
+                    spriteLog.setPosition(810, 720);
+                }
+            }
+
+            if (branchPositions[5] == playerSide) {
+                paused = true;
+                acceptInput = false;
+                spriteRIP.setPosition(525, 760);
+                spritePlayer.setPosition(SCREEN_WIDTH + 100, 660);
+                messageText.setString("SQUISHED!!");
+                centerText(messageText);
+                death.play();
+            }
         }
 
         drawScene(window, paused);
