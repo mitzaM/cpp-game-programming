@@ -20,12 +20,12 @@ void Bat::moveLeft() {
 	m_MovingLeft = true;
 }
 
-void Bat::moveRight() {
-	m_MovingRight = true;
-}
-
 void Bat::stopLeft() {
 	m_MovingLeft = false;
+}
+
+void Bat::moveRight() {
+	m_MovingRight = true;
 }
 
 void Bat::stopRight() {
