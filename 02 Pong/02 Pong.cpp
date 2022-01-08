@@ -62,6 +62,26 @@ int main()
         ss << "Score:" << score << "  Lives:" << lives;
         hud.setString(ss.str());
 
+        if (ball.getPosition().top > window.getSize().y) {
+            ball.reboundBottom();
+            lives--;
+            if (lives < 1) {
+                score = 0;
+                lives = 3;
+                ball.resetSpeed();
+            }
+        }
+        if (ball.getPosition().top < 0) {
+            ball.reboundBatOrTop();
+        }
+        if (ball.getPosition().left < 0 || ball.getPosition().left + ball.getPosition().width > window.getSize().x) {
+            ball.reboundSides();
+        }
+        if (ball.getPosition().intersects(bat.getPosition())) {
+            ball.reboundBatOrTop();
+            score++;
+        }
+
         window.clear();
         window.draw(hud);
         window.draw(ball.getShape());
