@@ -1,3 +1,4 @@
+#include "Ball.h"
 #include "Bat.h"
 #include <sstream>
 #include <cstdlib>
@@ -14,6 +15,7 @@ int main()
     int score = 0;
     int lives = 3;
 
+    Ball ball(SCREEN_WIDTH / 2, 0);
     Bat bat(SCREEN_WIDTH / 2, SCREEN_HEIGHT - 20);
 
     Font font;
@@ -54,6 +56,7 @@ int main()
         }
 
         Time dt = clock.restart();
+        ball.update(dt);
         bat.update(dt);
         std::stringstream ss;
         ss << "Score:" << score << "  Lives:" << lives;
@@ -61,6 +64,7 @@ int main()
 
         window.clear();
         window.draw(hud);
+        window.draw(ball.getShape());
         window.draw(bat.getShape());
         window.display();
     }
