@@ -26,12 +26,16 @@ void Ball::reboundSides() {
 
 void Ball::reboundBatOrTop() {
 	m_DirectionY = -m_DirectionY;
+	if (m_Speed < 2000.0f) {
+		m_Speed *= 1.2f;
+	}
 }
 
 void Ball::reboundBottom() {
 	m_Position.x = 500;
 	m_Position.y = 0;
 	m_DirectionY = -m_DirectionY;
+	m_Speed *= 0.8f;
 }
 
 void Ball::update(Time dt) {
@@ -39,4 +43,8 @@ void Ball::update(Time dt) {
 	m_Position.y += m_DirectionY * m_Speed * dt.asSeconds();
 
 	m_Shape.setPosition(m_Position);
+}
+
+void Ball::resetSpeed() {
+	m_Speed = 500.0f;
 }

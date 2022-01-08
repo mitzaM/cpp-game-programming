@@ -24,4 +24,5 @@ public:
 	void reboundBottom();
 
 	void update(Time dt);
+	void resetSpeed();
 };

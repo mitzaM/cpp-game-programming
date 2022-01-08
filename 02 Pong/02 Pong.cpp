@@ -41,14 +41,14 @@ int main()
             window.close();
         }
 
-        if (Keyboard::isKeyPressed(Keyboard::Left)) {
+        if (Keyboard::isKeyPressed(Keyboard::Left) && bat.getPosition().left >= 0) {
             bat.moveLeft();
         }
         else {
             bat.stopLeft();
         }
 
-        if (Keyboard::isKeyPressed(Keyboard::Right)) {
+        if (Keyboard::isKeyPressed(Keyboard::Right) && bat.getPosition().left + bat.getPosition().width <= window.getSize().x) {
             bat.moveRight();
         }
         else {
