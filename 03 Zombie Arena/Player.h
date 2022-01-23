@@ -6,7 +6,7 @@ using namespace sf;
 class Player {
 private:
 	const float START_SPEED = 200.0f;
-	const float START_HEALTH = 100.0f;
+	const int START_HEALTH = 100;
 
 	Vector2f m_Position;
 	Sprite m_Sprite;
@@ -48,7 +48,7 @@ public:
 	void moveDown();
 	void stopDown();
 
-	void update(float elapsedTime, Vector2f mousePosition);
+	void update(float elapsedTime, Vector2i mousePosition);
 	void upgradeSpeed();
 	void upgradeHealth();
 	void increaseHealthLevel(int amount);
