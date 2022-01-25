@@ -25,7 +25,25 @@ int main()
     IntRect arena;
 
     while (window.isOpen()) {
+        Event event;
+        while (window.pollEvent(event)) {
+            if (event.type == Event::KeyPressed) {
+                if (event.key.code == Keyboard::Return && state == State::PLAYING) {
+                    state = State::PAUSED;
+                }
+                else if (event.key.code == Keyboard::Return && state == State::PAUSED) {
+                    state = State::PLAYING;
+                    clock.restart();
+                }
+                else if (event.key.code == Keyboard::Return && state == State::GAME_OVER) {
+                    state = State::LEVELING_UP;
+                }
 
+                if (state == State::PLAYING) {
+
+                }
+            }
+        }
     }
 
     return 0;
