@@ -58,6 +58,39 @@ int main()
             Keyboard::isKeyPressed(Keyboard::A) ? player.moveLeft() : player.stopLeft();
             Keyboard::isKeyPressed(Keyboard::D) ? player.moveRight() : player.stopRight();
         }
+
+        if (state == State::LEVELING_UP) {
+            switch (event.key.code) {
+            case Keyboard::Num1:
+                state = State::PLAYING;
+                break;
+            case Keyboard::Num2:
+                state = State::PLAYING;
+                break;
+            case Keyboard::Num3:
+                state = State::PLAYING;
+                break;
+            case Keyboard::Num4:
+                state = State::PLAYING;
+                break;
+            case Keyboard::Num5:
+                state = State::PLAYING;
+                break;
+            case Keyboard::Num6:
+                state = State::PLAYING;
+                break;
+            }
+
+            if (state == State::PLAYING) {
+                arena.width = 500;
+                arena.height = 500;
+                arena.left = 0;
+                arena.top = 0;
+                int tileSize = 50;
+                player.spawn(arena, resolution, tileSize);
+                clock.restart();
+            }
+        }
     }
 
     return 0;

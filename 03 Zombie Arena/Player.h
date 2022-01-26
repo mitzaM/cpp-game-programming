@@ -12,7 +12,7 @@ private:
 	Sprite m_Sprite;
 	Texture m_Texture;
 
-	Vector2f m_Resolution;
+	Vector2u m_Resolution;
 	IntRect m_Arena;
 	int m_TileSize;
 
@@ -28,7 +28,7 @@ private:
 
 public:
 	Player();
-	void spawn(IntRect arena, Vector2f resolution, int tileSize);
+	void spawn(IntRect arena, Vector2u resolution, int tileSize);
 
 	void resetPlayerStats();
 	bool hit(Time timeHit);
