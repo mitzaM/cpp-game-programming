@@ -91,6 +91,33 @@ int main()
                 clock.restart();
             }
         }
+
+        if (state == State::PLAYING) {
+            Time dt = clock.restart();
+            gameTimeTotal += dt;
+            float dtAsSeconds = dt.asSeconds();
+            mouseScreenPosition = Mouse::getPosition();
+            mouseWorldPosition = window.mapPixelToCoords(Mouse::getPosition(), mainView);
+            player.update(dtAsSeconds, Mouse::getPosition());
+            Vector2f playerPosition(player.getCenter());
+            mainView.setCenter(player.getCenter());
+        }
+
+        if (state == State::PLAYING) {
+            window.clear();
+            window.setView(mainView);
+            window.draw(player.getSprite());
+        }
+        if (state == State::LEVELING_UP) {
+
+        }
+        if (state == State::PAUSED) {
+
+        }
+        if (state == State::GAME_OVER) {
+
+        }
+        window.display();
     }
 
     return 0;
