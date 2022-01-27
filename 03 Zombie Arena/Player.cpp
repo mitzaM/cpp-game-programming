@@ -8,9 +8,15 @@ Player::Player() {
 	m_Texture.loadFromFile("graphics/player.png");
 	m_Sprite.setTexture(m_Texture);
 	m_Sprite.setOrigin(25, 25);
+	m_TileSize = 0;
+
+	m_LeftPressed = false;
+	m_RightPressed = false;
+	m_DownPressed = false;
+	m_UpPressed = false;
 }
 
-void Player::spawn(IntRect arena, Vector2f resolution, int tileSize) {
+void Player::spawn(IntRect arena, Vector2u resolution, int tileSize) {
 	m_Position.x = arena.width / 2.0f;
 	m_Position.y = arena.height / 2.0f;
 
@@ -127,10 +133,11 @@ void Player::update(float elapsedTime, Vector2i mousePosition) {
 	}
 
 	float angle = (
-		atan2(
+		(float)atan2(
 			mousePosition.y - m_Resolution.y / 2,
 			mousePosition.x - m_Resolution.x / 2
 		) * 180) / 3.141f;
+	m_Sprite.setRotation(angle);
 }
 
 void Player::upgradeSpeed() {
