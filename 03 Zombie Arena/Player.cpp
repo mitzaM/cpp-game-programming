@@ -132,11 +132,9 @@ void Player::update(float elapsedTime, Vector2i mousePosition) {
 		m_Position.y = (float)(m_Arena.top + m_TileSize);
 	}
 
-	float angle = (
-		(float)atan2(
-			mousePosition.y - m_Resolution.y / 2,
-			mousePosition.x - m_Resolution.x / 2
-		) * 180) / 3.141f;
+	int dx = mousePosition.x - m_Resolution.x / 2;
+	int dy = mousePosition.y - m_Resolution.y / 2;
+	float angle = (float)((atan2(dy, dx) * 180) / 3.141);
 	m_Sprite.setRotation(angle);
 }
 
