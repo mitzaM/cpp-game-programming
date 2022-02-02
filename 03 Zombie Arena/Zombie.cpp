@@ -6,6 +6,7 @@
 
 using namespace std;
 
+
 void Zombie::spawn(float startX, float startY, ZombieType type, int seed) {
 	switch (type) {
 	case ZombieType::BLOATER:
@@ -66,22 +67,23 @@ void Zombie::update(float elapsedTime, Vector2f playerLocation) {
 	float playerY = playerLocation.y;
 
 	if (playerX > m_Position.x) {
-		m_Position.x = m_Position.x + m_Speed * elapsedTime;
+		m_Position.x += m_Speed * elapsedTime;
 	}
 	if (playerY > m_Position.y) {
-		m_Position.y = m_Position.y + m_Speed * elapsedTime;
+		m_Position.y += m_Speed * elapsedTime;
 	}
 
 	if (playerX < m_Position.x) {
-		m_Position.x = m_Position.x - m_Speed * elapsedTime;
+		m_Position.x -= m_Speed * elapsedTime;
 	}
 	if (playerY < m_Position.y) {
-		m_Position.y = m_Position.y - m_Speed * elapsedTime;
+		m_Position.y -= m_Speed * elapsedTime;
 	}
 
 	m_Sprite.setPosition(m_Position);
-	float angle = (float)(
-		atan2(playerY - m_Position.y, playerX - m_Position.x)
-		* 180) / 3.141;
+
+	int dx = (int)(playerX - m_Position.x);
+	int dy = (int)(playerY - m_Position.y);
+	float angle = (float)((atan2(dy, dx) * 180) / 3.141);
 	m_Sprite.setRotation(angle);
 }
