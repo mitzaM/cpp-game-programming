@@ -2,20 +2,20 @@
 #ifndef TEXTURE_HOLDER_H
 #define TEXTURE_HOLDER_H
 
-#include <SFML/Graphics.hpp>
 #include <map>
+#include <SFML/Graphics.hpp>
+
 
 using namespace sf;
-using namespace std;
 
 class TextureHolder {
 private:
-	map<string, Texture> m_Textures;
+	std::map<std::string, Texture> m_Textures;
 	static TextureHolder* m_s_Instance;
 
 public:
 	TextureHolder();
-	static Texture& GetTexture(string const& filename);
+	static Texture& GetTexture(std::string const& filename);
 };
 
 #endif // !TEXTURE_HOLDER_H
