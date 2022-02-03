@@ -1,7 +1,7 @@
 #include "Zombie.h"
 #include "ZombieArena.h"
 
-Zombie* createHorde(int numZombies, IntRect arena) {
+Zombie* createHorde(int numZombies, sf::IntRect arena) {
 	Zombie* zombies = new Zombie[numZombies];
 
 	int minX = arena.left + 20;

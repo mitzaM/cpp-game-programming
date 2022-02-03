@@ -1,19 +1,17 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 
-using namespace sf;
-
 class Player {
 private:
 	const float START_SPEED = 200.0f;
 	const int START_HEALTH = 100;
 
-	Vector2f m_Position;
-	Sprite m_Sprite;
-	Texture m_Texture;
+	sf::Vector2f m_Position;
+	sf::Sprite m_Sprite;
+	sf::Texture m_Texture;
 
-	Vector2u m_Resolution;
-	IntRect m_Arena;
+	sf::Vector2u m_Resolution;
+	sf::IntRect m_Arena;
 	int m_TileSize;
 
 	bool m_UpPressed;
@@ -23,21 +21,21 @@ private:
 
 	int m_Health;
 	int m_MaxHealth;
-	Time m_LastHit;
+	sf::Time m_LastHit;
 	float m_Speed;
 
 public:
 	Player();
-	void spawn(IntRect arena, Vector2u resolution, int tileSize);
+	void spawn(sf::IntRect arena, sf::Vector2u resolution, int tileSize);
 
 	void resetPlayerStats();
-	bool hit(Time timeHit);
-	Time getLastHitTime();
+	bool hit(sf::Time timeHit);
+	sf::Time getLastHitTime();
 
-	FloatRect getPosition();
-	Vector2f getCenter();
+	sf::FloatRect getPosition();
+	sf::Vector2f getCenter();
 	float getRotation();
-	Sprite getSprite();
+	sf::Sprite getSprite();
 
 	void moveLeft();
 	void stopLeft();
@@ -48,7 +46,7 @@ public:
 	void moveDown();
 	void stopDown();
 
-	void update(float elapsedTime, Vector2i mousePosition);
+	void update(float elapsedTime, sf::Vector2i mousePosition);
 	void upgradeSpeed();
 	void upgradeHealth();
 	void increaseHealthLevel(int amount);

@@ -4,23 +4,20 @@
 #include "TextureHolder.h"
 #include "Zombie.h"
 
-using namespace std;
-
-
 void Zombie::spawn(float startX, float startY, ZombieType type, int seed) {
 	switch (type) {
 	case ZombieType::BLOATER:
-		m_Sprite = Sprite(TextureHolder::GetTexture("graphics/bloater.png"));
+		m_Sprite = sf::Sprite(TextureHolder::GetTexture("graphics/bloater.png"));
 		m_Speed = BLOATER_SPEED;
 		m_Health = BLOATER_HEALTH;
 		break;
 	case ZombieType::CHASER:
-		m_Sprite = Sprite(TextureHolder::GetTexture("graphics/chaser.png"));
+		m_Sprite = sf::Sprite(TextureHolder::GetTexture("graphics/chaser.png"));
 		m_Speed = CHASER_SPEED;
 		m_Health = CHASER_HEALTH;
 		break;
 	case ZombieType::CRAWLER:
-		m_Sprite = Sprite(TextureHolder::GetTexture("graphics/crawler.png"));
+		m_Sprite = sf::Sprite(TextureHolder::GetTexture("graphics/crawler.png"));
 		m_Speed = CRAWLER_SPEED;
 		m_Health = CRAWLER_HEALTH;
 		break;
@@ -54,15 +51,15 @@ bool Zombie::isAlive() {
 	return m_Alive;
 }
 
-FloatRect Zombie::getPosition() {
+sf::FloatRect Zombie::getPosition() {
 	return m_Sprite.getGlobalBounds();
 }
 
-Sprite Zombie::getSprite() {
+sf::Sprite Zombie::getSprite() {
 	return m_Sprite;
 }
 
-void Zombie::update(float elapsedTime, Vector2f playerLocation) {
+void Zombie::update(float elapsedTime, sf::Vector2f playerLocation) {
 	float playerX = playerLocation.x;
 	float playerY = playerLocation.y;
 

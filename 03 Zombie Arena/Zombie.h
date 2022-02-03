@@ -1,8 +1,6 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 
-using namespace sf;
-
 enum class ZombieType { BLOATER, CHASER, CRAWLER };
 
 class Zombie {
@@ -18,8 +16,8 @@ private:
 	const int MAX_VARIANCE = 30;
 	const int OFFSET = 101 - MAX_VARIANCE;
 
-	Vector2f m_Position;
-	Sprite m_Sprite;
+	sf::Vector2f m_Position;
+	sf::Sprite m_Sprite;
 	float m_Speed;
 	int m_Health;
 	bool m_Alive;
@@ -27,10 +25,10 @@ private:
 public:
 	void spawn(float startX, float startY, ZombieType type, int seed);
 
-	FloatRect getPosition();
-	Sprite getSprite();
+	sf::FloatRect getPosition();
+	sf::Sprite getSprite();
 
 	bool hit();
 	bool isAlive();
-	void update(float elapsedTime, Vector2f playerLocation);
+	void update(float elapsedTime, sf::Vector2f playerLocation);
 };
