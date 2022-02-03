@@ -16,7 +16,7 @@ Player::Player() {
 	m_UpPressed = false;
 }
 
-void Player::spawn(IntRect arena, Vector2u resolution, int tileSize) {
+void Player::spawn(sf::IntRect arena, sf::Vector2u resolution, int tileSize) {
 	m_Position.x = arena.width / 2.0f;
 	m_Position.y = arena.height / 2.0f;
 
@@ -37,11 +37,11 @@ void Player::resetPlayerStats() {
 	m_MaxHealth = START_HEALTH;
 }
 
-Time Player::getLastHitTime() {
+sf::Time Player::getLastHitTime() {
 	return m_LastHit;
 }
 
-bool Player::hit(Time timeHit) {
+bool Player::hit(sf::Time timeHit) {
 	if (timeHit.asMilliseconds() - m_LastHit.asMilliseconds() > 200) {
 		m_LastHit = timeHit;
 		m_Health -= 10;
@@ -52,11 +52,11 @@ bool Player::hit(Time timeHit) {
 	}
 }
 
-FloatRect Player::getPosition() {
+sf::FloatRect Player::getPosition() {
 	return m_Sprite.getGlobalBounds();
 }
 
-Vector2f Player::getCenter() {
+sf::Vector2f Player::getCenter() {
 	return m_Position;
 }
 
@@ -64,7 +64,7 @@ float Player::getRotation() {
 	return m_Sprite.getRotation();
 }
 
-Sprite Player::getSprite() {
+sf::Sprite Player::getSprite() {
 	return m_Sprite;
 }
 
@@ -104,7 +104,7 @@ void Player::stopDown() {
 	m_DownPressed = false;
 }
 
-void Player::update(float elapsedTime, Vector2i mousePosition) {
+void Player::update(float elapsedTime, sf::Vector2i mousePosition) {
 	if (m_LeftPressed) {
 		m_Position.x -= m_Speed * elapsedTime;
 	}

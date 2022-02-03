@@ -1,6 +1,5 @@
 #pragma once
-#include <SFML/Graphics.hpp>
+#include "Zombie.h"
 
-using namespace sf;
-
-int createBackground(VertexArray& rVA, IntRect arena);
+int createBackground(sf::VertexArray& rVA, sf::IntRect arena);
+Zombie* createHorde(int numZombies, sf::IntRect arena);
