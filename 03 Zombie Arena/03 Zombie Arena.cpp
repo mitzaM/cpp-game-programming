@@ -44,6 +44,10 @@ int main()
     float fireRate = 1.0f;
     sf::Time lastPressed;
 
+    window.setMouseCursorVisible(true);
+    sf::Sprite spriteCrosshair = sf::Sprite(TextureHolder::GetTexture("graphics/crosshair.png"));
+    spriteCrosshair.setOrigin(25, 25);
+
     while (window.isOpen()) {
         sf::Event event;
         while (window.pollEvent(event)) {
@@ -151,6 +155,7 @@ int main()
 
             mouseScreenPosition = sf::Mouse::getPosition();
             mouseWorldPosition = window.mapPixelToCoords(sf::Mouse::getPosition(), mainView);
+            spriteCrosshair.setPosition(mouseWorldPosition);
 
             player.update(dt.asSeconds(), sf::Mouse::getPosition());
             sf::Vector2f playerPosition(player.getCenter());
@@ -181,6 +186,7 @@ int main()
                 }
             }
             window.draw(player.getSprite());
+            window.draw(spriteCrosshair);
         }
         if (state == State::LEVELING_UP) {
 
