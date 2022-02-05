@@ -5,6 +5,8 @@
 #include "Zombie.h"
 
 void Zombie::spawn(float startX, float startY, ZombieType type, int seed) {
+	m_Alive = true;
+
 	switch (type) {
 	case ZombieType::BLOATER:
 		m_Sprite = sf::Sprite(TextureHolder::GetTexture("graphics/bloater.png"));
