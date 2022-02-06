@@ -59,3 +59,34 @@ int Pickup::gotIt() {
 	m_SecondsSinceDespawn = 0;
 	return m_Value;
 }
+
+void Pickup::update(float elapsedTime) {
+	if (m_Spawned) {
+		m_SecondsSinceSpawn += elapsedTime;
+	}
+	else {
+		m_SecondsSinceDespawn += elapsedTime;
+	}
+
+	if (m_Spawned && m_SecondsSinceSpawn > m_SecondsToLive) {
+		m_Spawned = false;
+		m_SecondsSinceDespawn = 0;
+	}
+
+	if (!m_Spawned && m_SecondsSinceDespawn > m_SecondsToWait) {
+		spawn();
+	}
+}
+
+void Pickup::upgrade() {
+	switch (m_Type) {
+	case PickupType::AMMO:
+		m_Value += AMMO_START_VALUE / 2;
+		break;
+	case PickupType::HEALTH:
+		m_Value += HEALTH_START_VALUE / 2;
+		break;
+	}
+	m_SecondsToLive += START_SECONDS_TO_LIVE / 10;
+	m_SecondsToWait -= START_WAIT_TIME / 10;
+}
