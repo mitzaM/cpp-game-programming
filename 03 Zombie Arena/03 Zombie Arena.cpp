@@ -1,6 +1,7 @@
 #include <SFML/Graphics.hpp>
 
 #include "Bullet.h"
+#include "Pickup.h"
 #include "Player.h"
 #include "TextureHolder.h"
 #include "ZombieArena.h"
@@ -47,6 +48,9 @@ int main()
     window.setMouseCursorVisible(true);
     sf::Sprite spriteCrosshair = sf::Sprite(TextureHolder::GetTexture("graphics/crosshair.png"));
     spriteCrosshair.setOrigin(25, 25);
+
+    Pickup healthPickup(PickupType::HEALTH);
+    Pickup ammoPickup(PickupType::AMMO);
 
     while (window.isOpen()) {
         sf::Event event;
@@ -140,6 +144,9 @@ int main()
                 int tileSize = createBackground(background, arena);
                 player.spawn(arena, resolution, tileSize);
 
+                healthPickup.setArena(arena);
+                ammoPickup.setArena(arena);
+
                 numZombies = 10;
                 delete[] zombies;
                 zombies = createHorde(numZombies, arena);
@@ -171,6 +178,9 @@ int main()
                     bullets[i].update(dt.asSeconds());
                 }
             }
+
+            healthPickup.update(dt.asSeconds());
+            ammoPickup.update(dt.asSeconds());
         }
 
         if (state == State::PLAYING) {
@@ -186,6 +196,12 @@ int main()
                 }
             }
             window.draw(player.getSprite());
+            if (healthPickup.isSpawned()) {
+                window.draw(healthPickup.getSprite());
+            }
+            if (ammoPickup.isSpawned()) {
+                window.draw(ammoPickup.getSprite());
+            }
             window.draw(spriteCrosshair);
         }
         if (state == State::LEVELING_UP) {
