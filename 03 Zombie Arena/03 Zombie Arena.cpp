@@ -1,3 +1,5 @@
+#include <sstream>
+
 #include <SFML/Graphics.hpp>
 
 #include "Bullet.h"
@@ -37,7 +39,7 @@ int main()
     Zombie* zombies = nullptr;
 
     const int NUM_BULLETS = 100;
-    Bullet bullets[NUM_BULLETS];
+    Bullet* bullets = new Bullet[NUM_BULLETS];
     int currentBullet = 0;
     int bulletsSpare = 24;
     int bulletsInClip = 6;
@@ -257,6 +259,7 @@ int main()
         window.display();
     }
 
+    delete[] bullets;
     delete[] zombies;
     return 0;
 }
