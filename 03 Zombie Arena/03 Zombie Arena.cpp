@@ -204,6 +204,17 @@ int main()
                     }
                 }
             }
+
+            for (int i = 0; i < numZombies; i++) {
+                if (zombies[i].isAlive() && player.getPosition().intersects(zombies[i].getPosition())) {
+                    if (player.hit(gameTimeTotal)) {
+
+                    }
+                    if (player.getHealth() <= 0) {
+                        state = State::GAME_OVER;
+                    }
+                }
+            }
         }
 
         if (state == State::PLAYING) {
