@@ -52,6 +52,9 @@ int main()
     Pickup healthPickup(PickupType::HEALTH);
     Pickup ammoPickup(PickupType::AMMO);
 
+    int score = 0;
+    int hiScore = 0;
+
     while (window.isOpen()) {
         sf::Event event;
         while (window.pollEvent(event)) {
@@ -181,6 +184,26 @@ int main()
 
             healthPickup.update(dt.asSeconds());
             ammoPickup.update(dt.asSeconds());
+
+            for (int i = 0; i < NUM_BULLETS; i++) {
+                for (int j = 0; j < numZombies; j++) {
+                    if (bullets[i].isInFlight() && zombies[j].isAlive()) {
+                        if (bullets[i].getPosition().intersects(zombies[j].getPosition())) {
+                            bullets[i].stop();
+                            if (zombies[j].hit()) {
+                                score += 10;
+                                if (score >= hiScore) {
+                                    hiScore = score;
+                                }
+                                numZombiesAlive--;
+                                if (numZombiesAlive == 0) {
+                                    state = State::LEVELING_UP;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
 
         if (state == State::PLAYING) {
