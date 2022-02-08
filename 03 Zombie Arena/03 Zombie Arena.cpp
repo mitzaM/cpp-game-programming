@@ -215,6 +215,13 @@ int main()
                     }
                 }
             }
+
+            if (healthPickup.isSpawned() && player.getPosition().intersects(healthPickup.getPosition())) {
+                player.increaseHealthLevel(healthPickup.gotIt());
+            }
+            if (ammoPickup.isSpawned() && player.getPosition().intersects(ammoPickup.getPosition())) {
+                bulletsSpare += ammoPickup.gotIt();
+            }
         }
 
         if (state == State::PLAYING) {
