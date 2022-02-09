@@ -1,3 +1,5 @@
+#include <sstream>
+
 #include <SFML/Graphics.hpp>
 
 #include "Bullet.h"
@@ -37,7 +39,7 @@ int main()
     Zombie* zombies = nullptr;
 
     const int NUM_BULLETS = 100;
-    Bullet bullets[NUM_BULLETS];
+    Bullet* bullets = new Bullet[NUM_BULLETS];
     int currentBullet = 0;
     int bulletsSpare = 24;
     int bulletsInClip = 6;
@@ -51,6 +53,9 @@ int main()
 
     Pickup healthPickup(PickupType::HEALTH);
     Pickup ammoPickup(PickupType::AMMO);
+
+    int score = 0;
+    int hiScore = 0;
 
     while (window.isOpen()) {
         sf::Event event;
@@ -181,6 +186,44 @@ int main()
 
             healthPickup.update(dt.asSeconds());
             ammoPickup.update(dt.asSeconds());
+
+            for (int i = 0; i < NUM_BULLETS; i++) {
+                for (int j = 0; j < numZombies; j++) {
+                    if (bullets[i].isInFlight() && zombies[j].isAlive()) {
+                        if (bullets[i].getPosition().intersects(zombies[j].getPosition())) {
+                            bullets[i].stop();
+                            if (zombies[j].hit()) {
+                                score += 10;
+                                if (score >= hiScore) {
+                                    hiScore = score;
+                                }
+                                numZombiesAlive--;
+                                if (numZombiesAlive == 0) {
+                                    state = State::LEVELING_UP;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            for (int i = 0; i < numZombies; i++) {
+                if (zombies[i].isAlive() && player.getPosition().intersects(zombies[i].getPosition())) {
+                    if (player.hit(gameTimeTotal)) {
+
+                    }
+                    if (player.getHealth() <= 0) {
+                        state = State::GAME_OVER;
+                    }
+                }
+            }
+
+            if (healthPickup.isSpawned() && player.getPosition().intersects(healthPickup.getPosition())) {
+                player.increaseHealthLevel(healthPickup.gotIt());
+            }
+            if (ammoPickup.isSpawned() && player.getPosition().intersects(ammoPickup.getPosition())) {
+                bulletsSpare += ammoPickup.gotIt();
+            }
         }
 
         if (state == State::PLAYING) {
@@ -216,6 +259,7 @@ int main()
         window.display();
     }
 
+    delete[] bullets;
     delete[] zombies;
     return 0;
 }
