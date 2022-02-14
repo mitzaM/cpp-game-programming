@@ -64,6 +64,15 @@ int main()
 
     sf::View hudView(sf::FloatRect(0, 0, resolution.x, resolution.y));
 
+    sf::Sprite spriteAmmoIcon;
+    sf::Texture textureAmmoIcon = TextureHolder::GetTexture("graphics/ammo_icon.png");
+    spriteAmmoIcon.setTexture(textureAmmoIcon);
+    spriteAmmoIcon.setPosition(20, 980);
+
+    sf::RectangleShape healthBar;
+    healthBar.setFillColor(sf::Color::Red);
+    healthBar.setPosition(450, 980);
+
     while (window.isOpen()) {
         sf::Event event;
         while (window.pollEvent(event)) {
