@@ -57,6 +57,13 @@ int main()
     int score = 0;
     int hiScore = 0;
 
+    sf::Sprite spriteGameOver;
+    sf::Texture textureGameOver = TextureHolder::GetTexture("graphics/background.png");
+    spriteGameOver.setTexture(textureGameOver);
+    spriteGameOver.setPosition(0, 0);
+
+    sf::View hudView(sf::FloatRect(0, 0, resolution.x, resolution.y));
+
     while (window.isOpen()) {
         sf::Event event;
         while (window.pollEvent(event)) {
