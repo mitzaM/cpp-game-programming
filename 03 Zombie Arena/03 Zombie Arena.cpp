@@ -62,7 +62,7 @@ int main()
     spriteGameOver.setTexture(textureGameOver);
     spriteGameOver.setPosition(0, 0);
 
-    sf::View hudView(sf::FloatRect(0, 0, resolution.x, resolution.y));
+    sf::View hudView(sf::FloatRect(0, 0, (float)resolution.x, (float)resolution.y));
 
     sf::Sprite spriteAmmoIcon;
     sf::Texture textureAmmoIcon = TextureHolder::GetTexture("graphics/ammo_icon.png");
@@ -140,6 +140,9 @@ int main()
     waveNumberText.setFillColor(sf::Color::White);
     waveNumberText.setPosition(1250, 980);
     waveNumberText.setString("Wave: 0");
+
+    int framesSinceLastHUDUpdate = 0;
+    int fpsMeasurementFrameInterval = 1000;
 
     while (window.isOpen()) {
         sf::Event event;
