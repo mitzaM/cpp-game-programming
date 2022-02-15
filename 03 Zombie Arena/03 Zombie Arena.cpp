@@ -73,6 +73,74 @@ int main()
     healthBar.setFillColor(sf::Color::Red);
     healthBar.setPosition(450, 980);
 
+    sf::Font font;
+    font.loadFromFile("fonts/zombiecontrol.ttf");
+
+    sf::Text pausedText;
+    pausedText.setFont(font);
+    pausedText.setCharacterSize(155);
+    pausedText.setFillColor(sf::Color::White);
+    pausedText.setPosition(400, 400);
+    pausedText.setString("Press enter \nto continue");
+
+    sf::Text gameOverText;
+    gameOverText.setFont(font);
+    gameOverText.setCharacterSize(125);
+    gameOverText.setFillColor(sf::Color::White);
+    gameOverText.setPosition(250, 850);
+    gameOverText.setString("Press Enter to play");
+
+    sf::Text levelUpText;
+    levelUpText.setFont(font);
+    levelUpText.setCharacterSize(80);
+    levelUpText.setFillColor(sf::Color::White);
+    levelUpText.setPosition(150, 250);
+    std::stringstream levelUpStream;
+    levelUpStream <<
+        "1 - Increased rate of fire" <<
+        "\n2 - Increased clip size (next reload)" <<
+        "\n3 - Increased max health" <<
+        "\n4 - Increased run speed" <<
+        "\n5 - More and better health pickups" <<
+        "\n6 - More and better ammo pickups";
+    levelUpText.setString(levelUpStream.str());
+
+    sf::Text ammoText;
+    ammoText.setFont(font);
+    ammoText.setCharacterSize(55);
+    ammoText.setFillColor(sf::Color::White);
+    ammoText.setPosition(200, 980);
+
+    sf::Text scoreText;
+    scoreText.setFont(font);
+    scoreText.setCharacterSize(55);
+    scoreText.setFillColor(sf::Color::White);
+    scoreText.setPosition(20, 0);
+
+    sf::Text hiScoreText;
+    hiScoreText.setFont(font);
+    hiScoreText.setCharacterSize(55);
+    hiScoreText.setFillColor(sf::Color::White);
+    hiScoreText.setPosition(1400, 0);
+    std::stringstream hiScoreStream;
+    hiScoreStream << "Hi score: " << hiScore;
+    hiScoreText.setString(hiScoreStream.str());
+
+    sf::Text zombiesRemainingText;
+    zombiesRemainingText.setFont(font);
+    zombiesRemainingText.setCharacterSize(55);
+    zombiesRemainingText.setFillColor(sf::Color::White);
+    zombiesRemainingText.setPosition(1500, 980);
+    zombiesRemainingText.setString("Zombies: 100");
+
+    int wave = 0;
+    sf::Text waveNumberText;
+    waveNumberText.setFont(font);
+    waveNumberText.setCharacterSize(55);
+    waveNumberText.setFillColor(sf::Color::White);
+    waveNumberText.setPosition(1250, 980);
+    waveNumberText.setString("Wave: 0");
+
     while (window.isOpen()) {
         sf::Event event;
         while (window.pollEvent(event)) {
