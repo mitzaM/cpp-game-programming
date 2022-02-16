@@ -357,15 +357,28 @@ int main()
                 window.draw(ammoPickup.getSprite());
             }
             window.draw(spriteCrosshair);
+
+            window.setView(hudView);
+            window.draw(spriteAmmoIcon);
+            window.draw(ammoText);
+            window.draw(scoreText);
+            window.draw(hiScoreText);
+            window.draw(healthBar);
+            window.draw(waveNumberText);
+            window.draw(zombiesRemainingText);
         }
         if (state == State::LEVELING_UP) {
-
+            window.draw(spriteGameOver);
+            window.draw(levelUpText);
         }
         if (state == State::PAUSED) {
-
+            window.draw(pausedText);
         }
         if (state == State::GAME_OVER) {
-
+            window.draw(spriteGameOver);
+            window.draw(gameOverText);
+            window.draw(scoreText);
+            window.draw(hiScoreText);
         }
         window.display();
     }
