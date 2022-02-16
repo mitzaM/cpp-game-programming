@@ -311,6 +311,30 @@ int main()
             if (ammoPickup.isSpawned() && player.getPosition().intersects(ammoPickup.getPosition())) {
                 bulletsSpare += ammoPickup.gotIt();
             }
+
+            healthBar.setSize(sf::Vector2f(player.getHealth() * 3.0f, 50.0f));
+            framesSinceLastHUDUpdate++;
+
+            if (framesSinceLastHUDUpdate > fpsMeasurementFrameInterval) {
+                std::stringstream ssAmmo, ssScore, ssHiScore, ssWave, ssZombiesAlive;
+
+                ssAmmo << bulletsInClip << "/" << bulletsSpare;
+                ammoText.setString(ssAmmo.str());
+
+                ssScore << "Score: " << score;
+                scoreText.setString(ssScore.str());
+
+                ssHiScore << "Hi score: " << hiScore;
+                hiScoreText.setString(ssHiScore.str());
+
+                ssWave << "Wave: " << wave;
+                waveNumberText.setString(ssWave.str());
+
+                ssZombiesAlive << "Zombies: " << numZombiesAlive;
+                zombiesRemainingText.setString(ssZombiesAlive.str());
+
+                framesSinceLastHUDUpdate = 0;
+            }
         }
 
         if (state == State::PLAYING) {
