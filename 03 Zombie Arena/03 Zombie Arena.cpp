@@ -1,3 +1,4 @@
+#include <fstream>
 #include <sstream>
 
 #include <SFML/Graphics.hpp>
@@ -116,6 +117,12 @@ int main()
     scoreText.setCharacterSize(55);
     scoreText.setFillColor(sf::Color::White);
     scoreText.setPosition(20, 0);
+
+    std::ifstream inputFile("gamedata/scores.txt");
+    if (inputFile.is_open()) {
+        inputFile >> hiScore;
+        inputFile.close();
+    }
 
     sf::Text hiScoreText;
     hiScoreText.setFont(font);
@@ -301,6 +308,10 @@ int main()
                     }
                     if (player.getHealth() <= 0) {
                         state = State::GAME_OVER;
+
+                        std::ofstream outputFile("gamedata/scores.txt");
+                        outputFile << hiScore;
+                        outputFile.close();
                     }
                 }
             }
