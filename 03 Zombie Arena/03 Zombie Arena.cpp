@@ -211,13 +211,15 @@ int main()
                         if (bulletsSpare >= clipSize) {
                             bulletsInClip = clipSize;
                             bulletsSpare -= clipSize;
+                            reload.play();
                         }
                         else if (bulletsSpare > 0) {
                             bulletsInClip = bulletsSpare;
                             bulletsSpare = 0;
+                            reload.play();
                         }
                         else {
-
+                            reloadFailed.play();
                         }
                     }
                 }
@@ -245,6 +247,7 @@ int main()
                     }
                     lastPressed = gameTimeTotal;
                     bulletsInClip--;
+                    shoot.play();
                 }
             }
         }
@@ -343,6 +346,7 @@ int main()
                                     state = State::LEVELING_UP;
                                 }
                             }
+                            splat.play();
                         }
                     }
                 }
@@ -351,7 +355,7 @@ int main()
             for (int i = 0; i < numZombies; i++) {
                 if (zombies[i].isAlive() && player.getPosition().intersects(zombies[i].getPosition())) {
                     if (player.hit(gameTimeTotal)) {
-
+                        hit.play();
                     }
                     if (player.getHealth() <= 0) {
                         state = State::GAME_OVER;
@@ -365,9 +369,11 @@ int main()
 
             if (healthPickup.isSpawned() && player.getPosition().intersects(healthPickup.getPosition())) {
                 player.increaseHealthLevel(healthPickup.gotIt());
+                pickup.play();
             }
             if (ammoPickup.isSpawned() && player.getPosition().intersects(ammoPickup.getPosition())) {
                 bulletsSpare += ammoPickup.gotIt();
+                pickup.play();
             }
 
             healthBar.setSize(sf::Vector2f(player.getHealth() * 3.0f, 50.0f));
