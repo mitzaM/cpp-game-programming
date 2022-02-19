@@ -1,6 +1,7 @@
 #include <fstream>
 #include <sstream>
 
+#include <SFML/Audio.hpp>
 #include <SFML/Graphics.hpp>
 
 #include "Bullet.h"
@@ -150,6 +151,34 @@ int main()
 
     int framesSinceLastHUDUpdate = 0;
     int fpsMeasurementFrameInterval = 1000;
+
+    sf::SoundBuffer hitBuffer;
+    hitBuffer.loadFromFile("sound/hit.wav");
+    sf::Sound hit(hitBuffer);
+
+    sf::SoundBuffer splatBuffer;
+    splatBuffer.loadFromFile("sound/splat.wav");
+    sf::Sound splat(splatBuffer);
+
+    sf::SoundBuffer shootBuffer;
+    shootBuffer.loadFromFile("sound/shoot.wav");
+    sf::Sound shoot(shootBuffer);
+
+    sf::SoundBuffer reloadBuffer;
+    reloadBuffer.loadFromFile("sound/reload.wav");
+    sf::Sound reload(reloadBuffer);
+
+    sf::SoundBuffer reloadFailedBuffer;
+    reloadFailedBuffer.loadFromFile("sound/reload_failed.wav");
+    sf::Sound reloadFailed(reloadFailedBuffer);
+
+    sf::SoundBuffer powerupBuffer;
+    powerupBuffer.loadFromFile("sound/powerup.wav");
+    sf::Sound powerup(powerupBuffer);
+
+    sf::SoundBuffer pickupBuffer;
+    pickupBuffer.loadFromFile("sound/pickup.wav");
+    sf::Sound pickup(pickupBuffer);
 
     while (window.isOpen()) {
         sf::Event event;
