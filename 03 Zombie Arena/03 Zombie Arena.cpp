@@ -195,6 +195,14 @@ int main()
                         break;
                     case State::GAME_OVER:
                         state = State::LEVELING_UP;
+                        wave = 0;
+                        score = 0;
+                        currentBullet = 0;
+                        bulletsSpare = 24;
+                        bulletsInClip = 6;
+                        clipSize = 6;
+                        fireRate = 1;
+                        player.resetPlayerStats();
                         break;
                     }
                 }
@@ -270,8 +278,10 @@ int main()
             }
 
             if (state == State::PLAYING) {
-                arena.width = 500;
-                arena.height = 500;
+                wave++;
+
+                arena.width = 500 * wave;
+                arena.height = 500 * wave;
                 arena.left = 0;
                 arena.top = 0;
 
@@ -281,10 +291,12 @@ int main()
                 healthPickup.setArena(arena);
                 ammoPickup.setArena(arena);
 
-                numZombies = 10;
+                numZombies = 5 * wave;
                 delete[] zombies;
                 zombies = createHorde(numZombies, arena);
                 numZombiesAlive = numZombies;
+
+                powerup.play();
 
                 clock.restart();
             }
