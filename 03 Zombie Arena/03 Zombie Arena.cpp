@@ -244,21 +244,27 @@ int main()
         if (state == State::LEVELING_UP) {
             switch (event.key.code) {
             case sf::Keyboard::Num1:
+                fireRate++;
                 state = State::PLAYING;
                 break;
             case sf::Keyboard::Num2:
+                clipSize += clipSize;
                 state = State::PLAYING;
                 break;
             case sf::Keyboard::Num3:
+                player.upgradeHealth();
                 state = State::PLAYING;
                 break;
             case sf::Keyboard::Num4:
+                player.upgradeSpeed();
                 state = State::PLAYING;
                 break;
             case sf::Keyboard::Num5:
+                healthPickup.upgrade();
                 state = State::PLAYING;
                 break;
             case sf::Keyboard::Num6:
+                ammoPickup.upgrade();
                 state = State::PLAYING;
                 break;
             }
