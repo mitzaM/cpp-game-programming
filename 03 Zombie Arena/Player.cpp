@@ -44,7 +44,7 @@ sf::Time Player::getLastHitTime() {
 bool Player::hit(sf::Time timeHit) {
 	if (timeHit.asMilliseconds() - m_LastHit.asMilliseconds() > 200) {
 		m_LastHit = timeHit;
-		m_Health -= 10;
+		m_Health -= 1;
 		return true;
 	}
 	else {

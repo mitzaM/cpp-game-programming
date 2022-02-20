@@ -1,5 +1,7 @@
+#include <fstream>
 #include <sstream>
 
+#include <SFML/Audio.hpp>
 #include <SFML/Graphics.hpp>
 
 #include "Bullet.h"
@@ -117,6 +119,12 @@ int main()
     scoreText.setFillColor(sf::Color::White);
     scoreText.setPosition(20, 0);
 
+    std::ifstream inputFile("gamedata/scores.txt");
+    if (inputFile.is_open()) {
+        inputFile >> hiScore;
+        inputFile.close();
+    }
+
     sf::Text hiScoreText;
     hiScoreText.setFont(font);
     hiScoreText.setCharacterSize(55);
@@ -144,6 +152,34 @@ int main()
     int framesSinceLastHUDUpdate = 0;
     int fpsMeasurementFrameInterval = 1000;
 
+    sf::SoundBuffer hitBuffer;
+    hitBuffer.loadFromFile("sound/hit.wav");
+    sf::Sound hit(hitBuffer);
+
+    sf::SoundBuffer splatBuffer;
+    splatBuffer.loadFromFile("sound/splat.wav");
+    sf::Sound splat(splatBuffer);
+
+    sf::SoundBuffer shootBuffer;
+    shootBuffer.loadFromFile("sound/shoot.wav");
+    sf::Sound shoot(shootBuffer);
+
+    sf::SoundBuffer reloadBuffer;
+    reloadBuffer.loadFromFile("sound/reload.wav");
+    sf::Sound reload(reloadBuffer);
+
+    sf::SoundBuffer reloadFailedBuffer;
+    reloadFailedBuffer.loadFromFile("sound/reload_failed.wav");
+    sf::Sound reloadFailed(reloadFailedBuffer);
+
+    sf::SoundBuffer powerupBuffer;
+    powerupBuffer.loadFromFile("sound/powerup.wav");
+    sf::Sound powerup(powerupBuffer);
+
+    sf::SoundBuffer pickupBuffer;
+    pickupBuffer.loadFromFile("sound/pickup.wav");
+    sf::Sound pickup(pickupBuffer);
+
     while (window.isOpen()) {
         sf::Event event;
         while (window.pollEvent(event)) {
@@ -159,6 +195,14 @@ int main()
                         break;
                     case State::GAME_OVER:
                         state = State::LEVELING_UP;
+                        wave = 0;
+                        score = 0;
+                        currentBullet = 0;
+                        bulletsSpare = 24;
+                        bulletsInClip = 6;
+                        clipSize = 6;
+                        fireRate = 1;
+                        player.resetPlayerStats();
                         break;
                     }
                 }
@@ -167,13 +211,15 @@ int main()
                         if (bulletsSpare >= clipSize) {
                             bulletsInClip = clipSize;
                             bulletsSpare -= clipSize;
+                            reload.play();
                         }
                         else if (bulletsSpare > 0) {
                             bulletsInClip = bulletsSpare;
                             bulletsSpare = 0;
+                            reload.play();
                         }
                         else {
-
+                            reloadFailed.play();
                         }
                     }
                 }
@@ -201,6 +247,7 @@ int main()
                     }
                     lastPressed = gameTimeTotal;
                     bulletsInClip--;
+                    shoot.play();
                 }
             }
         }
@@ -208,28 +255,36 @@ int main()
         if (state == State::LEVELING_UP) {
             switch (event.key.code) {
             case sf::Keyboard::Num1:
+                fireRate++;
                 state = State::PLAYING;
                 break;
             case sf::Keyboard::Num2:
+                clipSize += clipSize;
                 state = State::PLAYING;
                 break;
             case sf::Keyboard::Num3:
+                player.upgradeHealth();
                 state = State::PLAYING;
                 break;
             case sf::Keyboard::Num4:
+                player.upgradeSpeed();
                 state = State::PLAYING;
                 break;
             case sf::Keyboard::Num5:
+                healthPickup.upgrade();
                 state = State::PLAYING;
                 break;
             case sf::Keyboard::Num6:
+                ammoPickup.upgrade();
                 state = State::PLAYING;
                 break;
             }
 
             if (state == State::PLAYING) {
-                arena.width = 500;
-                arena.height = 500;
+                wave++;
+
+                arena.width = 500 * wave;
+                arena.height = 500 * wave;
                 arena.left = 0;
                 arena.top = 0;
 
@@ -239,10 +294,12 @@ int main()
                 healthPickup.setArena(arena);
                 ammoPickup.setArena(arena);
 
-                numZombies = 10;
+                numZombies = 5 * wave;
                 delete[] zombies;
                 zombies = createHorde(numZombies, arena);
                 numZombiesAlive = numZombies;
+
+                powerup.play();
 
                 clock.restart();
             }
@@ -289,6 +346,7 @@ int main()
                                     state = State::LEVELING_UP;
                                 }
                             }
+                            splat.play();
                         }
                     }
                 }
@@ -297,19 +355,25 @@ int main()
             for (int i = 0; i < numZombies; i++) {
                 if (zombies[i].isAlive() && player.getPosition().intersects(zombies[i].getPosition())) {
                     if (player.hit(gameTimeTotal)) {
-
+                        hit.play();
                     }
                     if (player.getHealth() <= 0) {
                         state = State::GAME_OVER;
+
+                        std::ofstream outputFile("gamedata/scores.txt");
+                        outputFile << hiScore;
+                        outputFile.close();
                     }
                 }
             }
 
             if (healthPickup.isSpawned() && player.getPosition().intersects(healthPickup.getPosition())) {
                 player.increaseHealthLevel(healthPickup.gotIt());
+                pickup.play();
             }
             if (ammoPickup.isSpawned() && player.getPosition().intersects(ammoPickup.getPosition())) {
                 bulletsSpare += ammoPickup.gotIt();
+                pickup.play();
             }
 
             healthBar.setSize(sf::Vector2f(player.getHealth() * 3.0f, 50.0f));
