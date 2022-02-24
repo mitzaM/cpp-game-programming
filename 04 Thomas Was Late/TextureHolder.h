@@ -4,7 +4,6 @@
 #define TEXTURE_HOLDER_H
 
 #include <map>
-
 #include <SFML/Graphics.hpp>
 
 class TextureHolder {
