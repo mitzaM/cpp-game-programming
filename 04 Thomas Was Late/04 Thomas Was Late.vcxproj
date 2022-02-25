@@ -145,8 +145,11 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="04 Thomas Was Late.cpp" />
+    <ClCompile Include="Draw.cpp" />
     <ClCompile Include="Engine.cpp" />
+    <ClCompile Include="Input.cpp" />
     <ClCompile Include="TextureHolder.cpp" />
+    <ClCompile Include="Update.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine.h" />
