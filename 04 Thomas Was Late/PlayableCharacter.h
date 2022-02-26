@@ -45,7 +45,7 @@ public:
 	void stopFalling(float position);
 	void stopRight(float position);
 	void stopLeft(float position);
-	void stopJump(float position);
+	void stopJump();
 
 	sf::Vector2f getCenter();
 
