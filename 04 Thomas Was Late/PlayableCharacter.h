@@ -6,19 +6,19 @@ class PlayableCharacter {
 protected:
 	sf::Sprite m_Sprite;
 
-	float m_JumpDuration;
-	bool m_JustJumped;
-	float m_TimeThisJump;
+	float m_JumpDuration{};
+	bool m_JustJumped{ false };
+	float m_TimeThisJump{ 0.0f };
 
-	bool m_IsJumping;
-	bool m_IsFalling;
+	bool m_IsJumping{ false };
+	bool m_IsFalling{ false };
 
-	bool m_LeftPressed;
-	bool m_RightPressed;
+	bool m_LeftPressed{ false };
+	bool m_RightPressed{ false };
 
 private:
-	float m_Gravity;
-	float m_Speed = 400;
+	float m_Gravity{};
+	float m_Speed{ 400.0f };
 
 	sf::Vector2f m_Position;
 

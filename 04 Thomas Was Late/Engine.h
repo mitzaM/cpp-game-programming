@@ -7,10 +7,10 @@ class Engine {
 private:
 	TextureHolder th;
 
-	const int TILE_SIZE = 50;
-	const int VERTS_IN_QUAD = 4;
+	const int TILE_SIZE{ 50 };
+	const int VERTS_IN_QUAD{ 4 };
 
-	const int GRAVITY = 300;
+	const int GRAVITY{ 300 };
 
 	sf::RenderWindow m_Window;
 
@@ -27,14 +27,14 @@ private:
 	sf::Sprite m_BackgroundSprite;
 	sf::Texture m_BackgroundTexture;
 
-	bool m_Playing = false;
-	bool m_Character1 = true;
-	bool m_SplitScreen = false;
+	bool m_Playing{ false };
+	bool m_Character1{ true };
+	bool m_SplitScreen{ false };
 
-	float m_TimeRemaining = 10.0f;
+	float m_TimeRemaining{ 10.0f };
 	sf::Time m_GameTimeTotal;
 
-	bool m_NewLevelRequired = true;
+	bool m_NewLevelRequired{ true };
 
 	void input();
 	void update(float dtAsSeconds);
