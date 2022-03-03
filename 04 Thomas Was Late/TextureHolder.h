@@ -4,15 +4,18 @@
 #define TEXTURE_HOLDER_H
 
 #include <map>
+
 #include <SFML/Graphics.hpp>
 
-class TextureHolder {
+
+class TextureHolder
+{
 private:
-	std::map<std::string, sf::Texture> m_Textures;
-	static TextureHolder* m_s_Instance;
+    std::map<std::string, sf::Texture> m_Textures;
+    static TextureHolder* m_s_Instance;
 public:
-	TextureHolder();
-	static sf::Texture& GetTexture(std::string const& filename);
+    TextureHolder();
+    static sf::Texture& GetTexture(std::string const& filename);
 };
 
 #endif // !TEXTURE_HOLDER_H

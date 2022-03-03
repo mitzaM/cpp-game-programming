@@ -6,7 +6,7 @@
 class PlayableCharacter
 {
 protected:
-    sf::Sprite m_Sprite{};
+    sf::Sprite m_Sprite;
 
     float m_JumpDuration{};
     bool m_JustJumped = false;
