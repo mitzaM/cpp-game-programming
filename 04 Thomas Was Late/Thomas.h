@@ -2,8 +2,10 @@
 
 #include "PlayableCharacter.h"
 
-class Thomas : public PlayableCharacter {
+
+class Thomas : public PlayableCharacter
+{
 public:
-	Thomas();
-	bool virtual handleInput();
+    Thomas();
+    bool virtual handleInput();
 };
