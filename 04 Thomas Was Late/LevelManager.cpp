@@ -66,7 +66,7 @@ int** LevelManager::nextLevel(sf::VertexArray& rVaLevel)
     std::string row;
     int y = 0;
     while (inputFile >> row) {
-        for (int x = 0; x < row.length(); x++) {
+        for (int x = 0; x < (int)row.length(); x++) {
             const char val = row[x];
             arrayLevel[y][x] = atoi(&val);
         }
@@ -79,19 +79,39 @@ int** LevelManager::nextLevel(sf::VertexArray& rVaLevel)
     int currentVertex = 0;
     for (int x = 0; x < m_LevelSize.x; x++) {
         for (int y = 0; y < m_LevelSize.y; y++) {
-            rVaLevel[currentVertex + 0].position = sf::Vector2f(x * TILE_SIZE, y * TILE_SIZE);
-            rVaLevel[currentVertex + 1].position = sf::Vector2f((x + 1) * TILE_SIZE, y * TILE_SIZE);
-            rVaLevel[currentVertex + 2].position = sf::Vector2f((x + 1) * TILE_SIZE, (y + 1) * TILE_SIZE);
-            rVaLevel[currentVertex + 3].position = sf::Vector2f(x * TILE_SIZE, (y + 1) * TILE_SIZE);
+            rVaLevel[currentVertex + 0].position = sf::Vector2f(x * TILE_SIZE * 1.0f, y * TILE_SIZE * 1.0f);
+            rVaLevel[currentVertex + 1].position = sf::Vector2f((x + 1) * TILE_SIZE * 1.0f, y * TILE_SIZE * 1.0f);
+            rVaLevel[currentVertex + 2].position = sf::Vector2f((x + 1) * TILE_SIZE * 1.0f, (y + 1) * TILE_SIZE * 1.0f);
+            rVaLevel[currentVertex + 3].position = sf::Vector2f(x * TILE_SIZE * 1.0f, (y + 1) * TILE_SIZE * 1.0f);
 
-            int verticalOffset = arrayLevel[y][x] * TILE_SIZE;
+            float verticalOffset = arrayLevel[y][x] * TILE_SIZE * 1.0f;
             rVaLevel[currentVertex + 0].texCoords = sf::Vector2f(0, 0 + verticalOffset);
-            rVaLevel[currentVertex + 1].texCoords = sf::Vector2f(TILE_SIZE, 0 + verticalOffset);
-            rVaLevel[currentVertex + 2].texCoords = sf::Vector2f(TILE_SIZE, TILE_SIZE + verticalOffset);
+            rVaLevel[currentVertex + 1].texCoords = sf::Vector2f(TILE_SIZE * 1.0f, 0 + verticalOffset);
+            rVaLevel[currentVertex + 2].texCoords = sf::Vector2f(TILE_SIZE * 1.0f, TILE_SIZE + verticalOffset);
             rVaLevel[currentVertex + 3].texCoords = sf::Vector2f(0, TILE_SIZE + verticalOffset);
 
             currentVertex += VERTS_IN_QUAD;
         }
     }
     return arrayLevel;
+}
+
+sf::Vector2i LevelManager::getLevelSize()
+{
+    return m_LevelSize;
+}
+
+int LevelManager::getCurrentLevel()
+{
+    return m_CurrentLevel;
+}
+
+float LevelManager::getTimeLimit()
+{
+    return m_BaseTimeLimit * m_TimeModifier;
+}
+
+sf::Vector2f LevelManager::getStartPosition()
+{
+    return m_StartPosition;
 }
