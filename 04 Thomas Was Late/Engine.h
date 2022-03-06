@@ -3,6 +3,7 @@
 #include <SFML/Graphics.hpp>
 
 #include "Bob.h"
+#include "LevelManager.h"
 #include "TextureHolder.h"
 #include "Thomas.h"
 
@@ -13,6 +14,7 @@ private:
     TextureHolder th;
     Thomas m_Thomas;
     Bob m_Bob;
+    LevelManager m_LM;
 
     const int TILE_SIZE = 50;
     const int VERTS_IN_QUAD = 4;
@@ -39,13 +41,19 @@ private:
     bool m_SplitScreen = false;
 
     float m_TimeRemaining = 10.0f;
-    sf::Time m_GameTimeTotal;
+    sf::Time m_GameTimeTotal = sf::seconds(0);
 
     bool m_NewLevelRequired = true;
+
+    sf::VertexArray m_VALevel;
+    int** m_ArrayLevel = NULL;
+    sf::Texture m_TextureTiles;
 
     void input();
     void update(float dtAsSeconds);
     void draw();
+
+    void loadLevel();
 
 public:
     Engine();
