@@ -54,6 +54,7 @@ private:
     void draw();
 
     void loadLevel();
+    bool detectCollisions(PlayableCharacter& character);
 
 public:
     Engine();

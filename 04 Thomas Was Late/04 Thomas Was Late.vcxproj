@@ -147,10 +147,12 @@
   <ItemGroup>
     <ClCompile Include="04 Thomas Was Late.cpp" />
     <ClCompile Include="Bob.cpp" />
+    <ClCompile Include="DetectCollisions.cpp" />
     <ClCompile Include="Draw.cpp" />
     <ClCompile Include="Engine.cpp" />
     <ClCompile Include="Input.cpp" />
     <ClCompile Include="LevelManager.cpp" />
+    <ClCompile Include="LoadLevel.cpp" />
     <ClCompile Include="PlayableCharacter.cpp" />
     <ClCompile Include="TextureHolder.cpp" />
     <ClCompile Include="Thomas.cpp" />
