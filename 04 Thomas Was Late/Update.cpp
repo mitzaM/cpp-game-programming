@@ -6,16 +6,24 @@
 void Engine::update(float dtAsSeconds)
 {
     if (m_NewLevelRequired) {
-        m_Thomas.spawn(sf::Vector2f(0, 0), GRAVITY * 1.0f);
-        m_Bob.spawn(sf::Vector2f(100, 0), GRAVITY * 1.0f);
-
-        m_TimeRemaining = 10.0f;
-        m_NewLevelRequired = false;
+        loadLevel();
     }
 
     if (m_Playing) {
         m_Thomas.update(dtAsSeconds);
         m_Bob.update(dtAsSeconds);
+
+        if (detectCollisions(m_Thomas) && detectCollisions(m_Bob)) {
+            m_NewLevelRequired = true;
+        } else {
+            detectCollisions(m_Bob);
+        }
+
+        if (m_Bob.getFeet().intersects(m_Thomas.getHead())) {
+            m_Bob.stopFalling(m_Thomas.getHead().top);
+        } else if (m_Thomas.getFeet().intersects(m_Bob.getHead())) {
+            m_Thomas.stopFalling(m_Bob.getHead().top);
+        }
 
         m_TimeRemaining -= dtAsSeconds;
         if (m_TimeRemaining <= 0) {

@@ -23,7 +23,7 @@ Engine::Engine()
     m_BackgroundTexture = TextureHolder::GetTexture("graphics/background.png");
     m_BackgroundSprite.setTexture(m_BackgroundTexture);
 
-    m_GameTimeTotal = sf::seconds(0);
+    m_TextureTiles = TextureHolder::GetTexture("graphics/tiles_sheet.png");
 }
 
 void Engine::run()
