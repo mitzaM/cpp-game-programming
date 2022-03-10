@@ -154,6 +154,7 @@
     <ClCompile Include="LevelManager.cpp" />
     <ClCompile Include="LoadLevel.cpp" />
     <ClCompile Include="PlayableCharacter.cpp" />
+    <ClCompile Include="SoundManager.cpp" />
     <ClCompile Include="TextureHolder.cpp" />
     <ClCompile Include="Thomas.cpp" />
     <ClCompile Include="Update.cpp" />
@@ -163,6 +164,7 @@
     <ClInclude Include="Engine.h" />
     <ClInclude Include="LevelManager.h" />
     <ClInclude Include="PlayableCharacter.h" />
+    <ClInclude Include="SoundManager.h" />
     <ClInclude Include="TextureHolder.h" />
     <ClInclude Include="Thomas.h" />
   </ItemGroup>
