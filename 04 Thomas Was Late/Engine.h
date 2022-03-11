@@ -4,6 +4,7 @@
 
 #include "Bob.h"
 #include "LevelManager.h"
+#include "SoundManager.h"
 #include "TextureHolder.h"
 #include "Thomas.h"
 
@@ -15,6 +16,7 @@ private:
     Thomas m_Thomas;
     Bob m_Bob;
     LevelManager m_LM;
+    SoundManager m_SM;
 
     const int TILE_SIZE = 50;
     const int VERTS_IN_QUAD = 4;
@@ -55,6 +57,9 @@ private:
 
     void loadLevel();
     bool detectCollisions(PlayableCharacter& character);
+
+    void populateEmitters(std::vector <sf::Vector2f>& vSoundEmitters, int** arrayLevel);
+    std::vector <sf::Vector2f> m_FireEmitters;
 
 public:
     Engine();
