@@ -3,6 +3,7 @@
 #include <SFML/Graphics.hpp>
 
 #include "Bob.h"
+#include "HUD.h"
 #include "LevelManager.h"
 #include "SoundManager.h"
 #include "TextureHolder.h"
@@ -13,10 +14,15 @@ class Engine
 {
 private:
     TextureHolder th;
+
     Thomas m_Thomas;
     Bob m_Bob;
+
     LevelManager m_LM;
     SoundManager m_SM;
+    Hud m_Hud;
+    int m_FramesSinceLastHudUpdate = 0;
+    int m_TargetFramesPerHudUpdate = 500;
 
     const int TILE_SIZE = 50;
     const int VERTS_IN_QUAD = 4;
