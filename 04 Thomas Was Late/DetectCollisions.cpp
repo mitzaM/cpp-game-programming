@@ -44,9 +44,9 @@ bool Engine::detectCollisions(PlayableCharacter& character)
                 if (character.getHead().intersects(block)) {
                     character.spawn(m_LM.getStartPosition(), GRAVITY * 1.0f);
                     if (m_ArrayLevel[y][x] == 2) {
-                        // fire sound
+                        m_SM.playFallInFire();
                     } else {
-                        // water sound
+                        m_SM.playFallInWater();
                     }
                 }
             }
