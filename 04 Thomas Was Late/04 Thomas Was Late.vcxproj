@@ -155,6 +155,7 @@
     <ClCompile Include="LevelManager.cpp" />
     <ClCompile Include="LoadLevel.cpp" />
     <ClCompile Include="Particle.cpp" />
+    <ClCompile Include="ParticleSystem.cpp" />
     <ClCompile Include="PlayableCharacter.cpp" />
     <ClCompile Include="PopulateEmitters.cpp" />
     <ClCompile Include="SoundManager.cpp" />
@@ -168,6 +169,7 @@
     <ClInclude Include="HUD.h" />
     <ClInclude Include="LevelManager.h" />
     <ClInclude Include="Particle.h" />
+    <ClInclude Include="ParticleSystem.h" />
     <ClInclude Include="PlayableCharacter.h" />
     <ClInclude Include="SoundManager.h" />
     <ClInclude Include="TextureHolder.h" />
