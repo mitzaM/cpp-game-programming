@@ -46,6 +46,7 @@ private:
 
     sf::Sprite m_BackgroundSprite;
     sf::Texture m_BackgroundTexture;
+    sf::Shader m_RippleShader;
 
     bool m_Playing = false;
     bool m_Character1 = true;

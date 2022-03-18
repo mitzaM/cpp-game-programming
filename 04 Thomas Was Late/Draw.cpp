@@ -4,10 +4,11 @@
 void Engine::draw()
 {
     m_Window.clear(sf::Color::White);
+    m_RippleShader.setUniform("uTime", m_GameTimeTotal.asSeconds());
 
     if (!m_SplitScreen) {
         m_Window.setView(m_BGMainView);
-        m_Window.draw(m_BackgroundSprite);
+        m_Window.draw(m_BackgroundSprite, &m_RippleShader);
 
         m_Window.setView(m_MainView);
         m_Window.draw(m_VALevel, &m_TextureTiles);
@@ -18,7 +19,7 @@ void Engine::draw()
         }
     } else {
         m_Window.setView(m_BGLeftView);
-        m_Window.draw(m_BackgroundSprite);
+        m_Window.draw(m_BackgroundSprite, &m_RippleShader);
 
         m_Window.setView(m_LeftView);
         m_Window.draw(m_VALevel, &m_TextureTiles);
@@ -29,7 +30,7 @@ void Engine::draw()
         }
 
         m_Window.setView(m_BGRightView);
-        m_Window.draw(m_BackgroundSprite);
+        m_Window.draw(m_BackgroundSprite, &m_RippleShader);
 
         m_Window.setView(m_RightView);
         m_Window.draw(m_VALevel, &m_TextureTiles);

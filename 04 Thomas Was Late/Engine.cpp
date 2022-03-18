@@ -20,6 +20,12 @@ Engine::Engine()
     m_RightView.setViewport(rightSide);
     m_BGRightView.setViewport(rightSide);
 
+    if (!sf::Shader::isAvailable()) {
+        m_Window.close();
+    } else {
+        m_RippleShader.loadFromFile("shaders/vertShader.vert", "shaders/rippleShader.frag");
+    }
+
     m_BackgroundTexture = TextureHolder::GetTexture("graphics/background.png");
     m_BackgroundSprite.setTexture(m_BackgroundTexture);
 
