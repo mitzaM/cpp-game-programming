@@ -49,6 +49,11 @@ bool Engine::detectCollisions(PlayableCharacter& character)
                         m_SM.playFallInWater();
                     }
                 }
+                if (!m_PS.running()) {
+                    if (character.getFeet().intersects(block)) {
+                        m_PS.emitParticles(character.getCenter());
+                    }
+                }
             }
             if (m_ArrayLevel[y][x] == 1) {
                 if (character.getRight().intersects(block)) {
