@@ -13,6 +13,42 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Header Files\Engine">
+      <UniqueIdentifier>{77079607-56f5-41b8-998b-8c833b21b631}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\FileIO">
+      <UniqueIdentifier>{763a6f3b-585b-452c-bec9-e4f0ce7ccb96}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\GameObjects">
+      <UniqueIdentifier>{17f6d5f2-3dc3-439f-9422-f48406a35118}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Screens">
+      <UniqueIdentifier>{30895d1e-e3cc-4d23-bb4c-2fe6f48603e1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Screens\Select">
+      <UniqueIdentifier>{cb8c9b69-e5e2-4e29-a58b-8b00b3502299}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Screens\Game">
+      <UniqueIdentifier>{c6a100cd-98db-4f29-82c2-e9557c619d78}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Engine">
+      <UniqueIdentifier>{111a90e5-3ce9-4292-9e66-42e293c2a8da}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\FileIO">
+      <UniqueIdentifier>{dc8c39a2-1803-4508-8db6-ca65c3c03933}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\GameObjects">
+      <UniqueIdentifier>{cb8b5c04-ab32-4c9f-945a-b1a559456a05}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Screens">
+      <UniqueIdentifier>{1d19096a-13e2-4917-8a27-953bdf202eed}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Screens\Game">
+      <UniqueIdentifier>{af50b1c0-5d77-46ba-91db-2eb30624290d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Screens\Select">
+      <UniqueIdentifier>{30e438f3-1115-4071-9097-e577696f9e90}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="05 Space Invaders ++.cpp">
