@@ -54,5 +54,22 @@
     <ClCompile Include="05 Space Invaders ++.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="GameEngine.cpp">
+      <Filter>Source Files\Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="SoundEngine.cpp">
+      <Filter>Source Files\Engine</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="DevelopState.h">
+      <Filter>Header Files\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="GameEngine.h">
+      <Filter>Header Files\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="SoundEngine.h">
+      <Filter>Header Files\Engine</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
