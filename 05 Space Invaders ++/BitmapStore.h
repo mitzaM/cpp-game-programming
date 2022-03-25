@@ -4,6 +4,7 @@
 #define BITMAP_STORE_H
 
 #include <map>
+#include <string>
 
 #include <SFML/Graphics.hpp>
 
