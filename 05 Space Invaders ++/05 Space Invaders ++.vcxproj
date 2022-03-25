@@ -146,6 +146,7 @@
   <ItemGroup>
     <ClCompile Include="05 Space Invaders ++.cpp" />
     <ClCompile Include="BitmapStore.cpp" />
+    <ClCompile Include="Button.cpp" />
     <ClCompile Include="GameEngine.cpp" />
     <ClCompile Include="ScreenManager.cpp" />
     <ClCompile Include="ScreenManagerRemoteControl.cpp" />
@@ -153,6 +154,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BitmapStore.h" />
+    <ClInclude Include="Button.h" />
     <ClInclude Include="DevelopState.h" />
     <ClInclude Include="GameEngine.h" />
     <ClInclude Include="ScreenManager.h" />
