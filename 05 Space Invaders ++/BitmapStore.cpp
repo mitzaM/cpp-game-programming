@@ -1,5 +1,6 @@
 #include <assert.h>
 #include <iostream>
+#include <map>
 #include <string>
 
 #include "BitmapStore.h"

@@ -11,6 +11,8 @@
 #include "ScreenManagerRemoteControl.h"
 
 
+class Screen;
+
 class InputHandler
 {
 private:
