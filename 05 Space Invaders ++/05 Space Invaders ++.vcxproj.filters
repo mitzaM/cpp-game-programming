@@ -93,6 +93,9 @@
     <ClCompile Include="GameScreen.cpp">
       <Filter>Source Files\Screens\Game</Filter>
     </ClCompile>
+    <ClCompile Include="GameInputHandler.cpp">
+      <Filter>Source Files\Screens\Game</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DevelopState.h">
@@ -138,6 +141,9 @@
       <Filter>Header Files\Screens\Select</Filter>
     </ClInclude>
     <ClInclude Include="GameScreen.h">
+      <Filter>Header Files\Screens\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="GameInputHandler.h">
       <Filter>Header Files\Screens\Game</Filter>
     </ClInclude>
   </ItemGroup>
