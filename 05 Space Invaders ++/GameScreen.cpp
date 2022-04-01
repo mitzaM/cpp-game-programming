@@ -31,7 +31,7 @@ GameScreen::GameScreen(ScreenManagerRemoteControl* smrc, sf::Vector2i res)
         sf::Vector2f(WorldState::WORLD_WIDTH / 2.0f, WorldState::WORLD_HEIGHT / 2.0f)
     );
 
-    m_BackgroundTexture.loadFromFile("graphics/background.jpg");
+    m_BackgroundTexture.loadFromFile("graphics/background.png");
     m_BackgroundSprite.setTexture(m_BackgroundTexture);
     auto textureSize = m_BackgroundSprite.getTexture()->getSize();
     m_BackgroundSprite.setScale(
