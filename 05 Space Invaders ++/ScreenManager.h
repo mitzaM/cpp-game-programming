@@ -10,6 +10,7 @@
 #include "BitmapStore.h"
 #include "GameScreen.h"
 // #include "LevelManager.h"
+#include "Screen.h"
 #include "ScreenManagerRemoteControl.h"
 #include "SelectScreen.h"
 
