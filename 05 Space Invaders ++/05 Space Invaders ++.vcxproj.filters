@@ -105,6 +105,9 @@
     <ClCompile Include="GameOverUIPanel.cpp">
       <Filter>Source Files\Screens\Game</Filter>
     </ClCompile>
+    <ClCompile Include="Component.cpp">
+      <Filter>Source Files\GameObjects</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DevelopState.h">
@@ -163,6 +166,9 @@
     </ClInclude>
     <ClInclude Include="GameOverUIPanel.h">
       <Filter>Header Files\Screens\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Component.h">
+      <Filter>Header Files\GameObjects</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
