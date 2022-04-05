@@ -165,6 +165,7 @@
     <ClCompile Include="SelectScreen.cpp" />
     <ClCompile Include="SelectUIPanel.cpp" />
     <ClCompile Include="SoundEngine.cpp" />
+    <ClCompile Include="StandardGraphicsComponent.cpp" />
     <ClCompile Include="UIPanel.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -189,6 +190,7 @@
     <ClInclude Include="SelectScreen.h" />
     <ClInclude Include="SelectUIPanel.h" />
     <ClInclude Include="SoundEngine.h" />
+    <ClInclude Include="StandardGraphicsComponent.h" />
     <ClInclude Include="UIPanel.h" />
     <ClInclude Include="WorldState.h" />
   </ItemGroup>
