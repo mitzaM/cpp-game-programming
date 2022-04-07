@@ -147,13 +147,17 @@
     <ClCompile Include="05 Space Invaders ++.cpp" />
     <ClCompile Include="BitmapStore.cpp" />
     <ClCompile Include="Button.cpp" />
+    <ClCompile Include="ColliderComponent.cpp" />
+    <ClCompile Include="Component.cpp" />
     <ClCompile Include="GameEngine.cpp" />
     <ClCompile Include="GameInputHandler.cpp" />
     <ClCompile Include="GameOverInputHandler.cpp" />
     <ClCompile Include="GameOverUIPanel.cpp" />
     <ClCompile Include="GameScreen.cpp" />
     <ClCompile Include="GameUIPanel.cpp" />
+    <ClCompile Include="GraphicsComponent.cpp" />
     <ClCompile Include="InputHandler.cpp" />
+    <ClCompile Include="RectColliderComponent.cpp" />
     <ClCompile Include="Screen.cpp" />
     <ClCompile Include="ScreenManager.cpp" />
     <ClCompile Include="ScreenManagerRemoteControl.cpp" />
@@ -161,11 +165,16 @@
     <ClCompile Include="SelectScreen.cpp" />
     <ClCompile Include="SelectUIPanel.cpp" />
     <ClCompile Include="SoundEngine.cpp" />
+    <ClCompile Include="StandardGraphicsComponent.cpp" />
+    <ClCompile Include="TransformComponent.cpp" />
     <ClCompile Include="UIPanel.cpp" />
+    <ClCompile Include="UpdateComponent.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BitmapStore.h" />
     <ClInclude Include="Button.h" />
+    <ClInclude Include="ColliderComponent.h" />
+    <ClInclude Include="Component.h" />
     <ClInclude Include="DevelopState.h" />
     <ClInclude Include="GameEngine.h" />
     <ClInclude Include="GameInputHandler.h" />
@@ -173,7 +182,9 @@
     <ClInclude Include="GameOverUIPanel.h" />
     <ClInclude Include="GameScreen.h" />
     <ClInclude Include="GameUIPanel.h" />
+    <ClInclude Include="GraphicsComponent.h" />
     <ClInclude Include="InputHandler.h" />
+    <ClInclude Include="RectColliderComponent.h" />
     <ClInclude Include="Screen.h" />
     <ClInclude Include="ScreenManager.h" />
     <ClInclude Include="ScreenManagerRemoteControl.h" />
@@ -181,7 +192,10 @@
     <ClInclude Include="SelectScreen.h" />
     <ClInclude Include="SelectUIPanel.h" />
     <ClInclude Include="SoundEngine.h" />
+    <ClInclude Include="StandardGraphicsComponent.h" />
+    <ClInclude Include="TransformComponent.h" />
     <ClInclude Include="UIPanel.h" />
+    <ClInclude Include="UpdateComponent.h" />
     <ClInclude Include="WorldState.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
