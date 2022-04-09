@@ -212,5 +212,8 @@
     <ClInclude Include="BulletUpdateComponent.h">
       <Filter>Header Files\GameObjects</Filter>
     </ClInclude>
+    <ClInclude Include="InvaderUpdateComponent.h">
+      <Filter>Header Files\GameObjects</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

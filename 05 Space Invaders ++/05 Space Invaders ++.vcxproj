@@ -186,6 +186,7 @@
     <ClInclude Include="GameUIPanel.h" />
     <ClInclude Include="GraphicsComponent.h" />
     <ClInclude Include="InputHandler.h" />
+    <ClInclude Include="InvaderUpdateComponent.h" />
     <ClInclude Include="RectColliderComponent.h" />
     <ClInclude Include="Screen.h" />
     <ClInclude Include="ScreenManager.h" />
