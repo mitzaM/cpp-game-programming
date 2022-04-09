@@ -129,6 +129,9 @@
     <ClCompile Include="BulletUpdateComponent.cpp">
       <Filter>Source Files\GameObjects</Filter>
     </ClCompile>
+    <ClCompile Include="InvaderUpdateComponent.cpp">
+      <Filter>Source Files\GameObjects</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DevelopState.h">
