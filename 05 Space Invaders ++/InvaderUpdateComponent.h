@@ -41,6 +41,7 @@ public:
     {
         return m_SpecificType;
     }
+
     void Component::start(GameObjectSharer* gos, GameObject* self)
     {
         m_PlayerTC = std::static_pointer_cast<TransformComponent>(
@@ -56,5 +57,6 @@ public:
             self->getComponentByTypeAndSpecificType("collider", "rect")
         );
     }
+
     void update(float fps) override;
 };
