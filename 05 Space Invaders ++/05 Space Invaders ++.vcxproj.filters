@@ -230,5 +230,8 @@
     <ClInclude Include="GameObject.h">
       <Filter>Header Files\GameObjects</Filter>
     </ClInclude>
+    <ClInclude Include="GameObjectBlueprint.h">
+      <Filter>Header Files\FileIO</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
