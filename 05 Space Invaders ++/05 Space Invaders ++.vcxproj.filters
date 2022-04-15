@@ -141,6 +141,9 @@
     <ClCompile Include="GameObjectBlueprint.cpp">
       <Filter>Source Files\FileIO</Filter>
     </ClCompile>
+    <ClCompile Include="ObjectTags.cpp">
+      <Filter>Source Files\FileIO</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DevelopState.h">
@@ -234,6 +237,9 @@
       <Filter>Header Files\GameObjects</Filter>
     </ClInclude>
     <ClInclude Include="GameObjectBlueprint.h">
+      <Filter>Header Files\FileIO</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjectTags.h">
       <Filter>Header Files\FileIO</Filter>
     </ClInclude>
   </ItemGroup>
