@@ -3,9 +3,11 @@
 #include <string>
 
 
-static class ObjectTags
+class ObjectTags
 {
 public:
+    ObjectTags() = delete;
+
     static const std::string START_OF_OBJECT;
     static const std::string END_OF_OBJECT;
     static const std::string COMPONENT;

@@ -144,6 +144,9 @@
     <ClCompile Include="ObjectTags.cpp">
       <Filter>Source Files\FileIO</Filter>
     </ClCompile>
+    <ClCompile Include="BlueprintObjectParser.cpp">
+      <Filter>Source Files\FileIO</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DevelopState.h">
@@ -240,6 +243,9 @@
       <Filter>Header Files\FileIO</Filter>
     </ClInclude>
     <ClInclude Include="ObjectTags.h">
+      <Filter>Header Files\FileIO</Filter>
+    </ClInclude>
+    <ClInclude Include="BlueprintObjectParser.h">
       <Filter>Header Files\FileIO</Filter>
     </ClInclude>
   </ItemGroup>
