@@ -156,6 +156,7 @@
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GameObjectBlueprint.cpp" />
     <ClCompile Include="GameObjectFactoryPlayMode.cpp" />
+    <ClCompile Include="GameObjectSharer.cpp" />
     <ClCompile Include="GameOverInputHandler.cpp" />
     <ClCompile Include="GameOverUIPanel.cpp" />
     <ClCompile Include="GameScreen.cpp" />
@@ -192,6 +193,7 @@
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameObjectBlueprint.h" />
     <ClInclude Include="GameObjectFactoryPlayMode.h" />
+    <ClInclude Include="GameObjectSharer.h" />
     <ClInclude Include="GameOverInputHandler.h" />
     <ClInclude Include="GameOverUIPanel.h" />
     <ClInclude Include="GameScreen.h" />

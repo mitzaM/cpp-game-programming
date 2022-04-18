@@ -34,7 +34,7 @@ void PlayerUpdateComponent::update(float fps)
     if (m_TC->getLocation().y > WorldState::WORLD_HEIGHT - size.y) {
         m_TC->getLocation().y = WorldState::WORLD_HEIGHT - size.y;
     } else if (m_TC->getLocation().y < WorldState::WORLD_HEIGHT / 2) {
-        m_TC->getLocation().y = WorldState::WORLD_HEIGHT / 2;
+        m_TC->getLocation().y = WorldState::WORLD_HEIGHT / 2.0f;
     }
 }
 
