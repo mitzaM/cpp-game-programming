@@ -150,6 +150,9 @@
     <ClCompile Include="PlayModeObjectLoader.cpp">
       <Filter>Source Files\FileIO</Filter>
     </ClCompile>
+    <ClCompile Include="GameObjectFactoryPlayMode.cpp">
+      <Filter>Source Files\FileIO</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DevelopState.h">
@@ -252,6 +255,9 @@
       <Filter>Header Files\FileIO</Filter>
     </ClInclude>
     <ClInclude Include="PlayModeObjectLoader.h">
+      <Filter>Header Files\FileIO</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObjectFactoryPlayMode.h">
       <Filter>Header Files\FileIO</Filter>
     </ClInclude>
   </ItemGroup>

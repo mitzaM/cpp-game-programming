@@ -155,6 +155,7 @@
     <ClCompile Include="GameInputHandler.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GameObjectBlueprint.cpp" />
+    <ClCompile Include="GameObjectFactoryPlayMode.cpp" />
     <ClCompile Include="GameOverInputHandler.cpp" />
     <ClCompile Include="GameOverUIPanel.cpp" />
     <ClCompile Include="GameScreen.cpp" />
@@ -190,6 +191,7 @@
     <ClInclude Include="GameInputHandler.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameObjectBlueprint.h" />
+    <ClInclude Include="GameObjectFactoryPlayMode.h" />
     <ClInclude Include="GameOverInputHandler.h" />
     <ClInclude Include="GameOverUIPanel.h" />
     <ClInclude Include="GameScreen.h" />
