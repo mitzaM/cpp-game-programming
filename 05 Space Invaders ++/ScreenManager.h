@@ -9,7 +9,7 @@
 
 #include "BitmapStore.h"
 #include "GameScreen.h"
-// #include "LevelManager.h"
+#include "LevelManager.h"
 #include "Screen.h"
 #include "ScreenManagerRemoteControl.h"
 #include "SelectScreen.h"
@@ -19,7 +19,7 @@ class ScreenManager : public ScreenManagerRemoteControl
 {
 private:
     std::map<std::string, std::unique_ptr<Screen>> m_Screens;
-    // LevelManager m_LevelManager;
+    LevelManager m_LevelManager;
 
 protected:
     std::string m_CurrentScreen = "Select";
@@ -41,18 +41,18 @@ public:
 
     void ScreenManagerRemoteControl::loadLevelInPlayMode(std::string screenToLoad)
     {
-        // m_LevelManager.getGameObjects().clear();
-        // m_LevelManager.loadGameObjectsForPlayMode(screenToLoad);
+        m_LevelManager.getGameObjects().clear();
+        m_LevelManager.loadGameObjectsForPlayMode(screenToLoad);
         SwitchScreens("Game");
     }
 
-    // std::vector<GameObject>& ScreenManagerRemoteControl::getGameObjects()
-    // {
-    //     return m_LevelManager.getGameObjects();
-    // }
+    std::vector<GameObject>& ScreenManagerRemoteControl::getGameObjects()
+    {
+        return m_LevelManager.getGameObjects();
+    }
 
-    // GameObjectSharer& shareGameObjectSharer()
-    // {
-    //     return m_LevelManager;
-    // }
+    GameObjectSharer& shareGameObjectSharer()
+    {
+        return m_LevelManager;
+    }
 };
