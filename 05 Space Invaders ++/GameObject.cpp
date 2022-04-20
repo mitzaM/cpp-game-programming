@@ -102,9 +102,9 @@ std::shared_ptr<Component> GameObject::getComponentByTypeAndSpecificType(std::st
         }
     }
 
-    #ifdef debuggingErrors
-    cout << "GameObject.cpp::getComponentByTypeAndSpecificType-" << "COMPONENT NOT FOUND ERROR!" << endl;
-    #endif // debuggingErrors
+    #ifdef debuggingOnConsole
+    std::cout << "GameObject.cpp::getComponentByTypeAndSpecificType - COMPONENT NOT FOUND ERROR!" << std::endl;
+    #endif // debuggingOnConsole
 
     return m_Components[0];
 }
