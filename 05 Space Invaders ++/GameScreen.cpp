@@ -74,3 +74,8 @@ void GameScreen::draw(sf::RenderWindow& window)
     window.draw(m_BackgroundSprite);
     Screen::draw(window);
 }
+
+BulletSpawner* GameScreen::getBulletSpawner()
+{
+    return this;
+}
