@@ -27,7 +27,7 @@ void InvaderUpdateComponent::update(float fps)
             sf::Vector2f spawnLocation(location.x + size.x / 2, location.y + size.y);
             m_BulletSpawner->spawnBullet(spawnLocation, false);
             srand(m_RandSeed);
-            m_TimeBetweenShots = (rand() % 10 + 1) / WorldState::WAVE_NUMBER;
+            m_TimeBetweenShots = float((rand() % 10 + 1) / WorldState::WAVE_NUMBER);
             m_TimeSinceLastShot = 0.0f;
         }
     }
@@ -52,7 +52,7 @@ void InvaderUpdateComponent::initialiseBulletSpawner(BulletSpawner* bulletSpawne
     m_RandSeed = randSeed;
 
     srand(m_RandSeed);
-    m_TimeBetweenShots = rand() % 15 + m_RandSeed;
-    m_AccuracyModifier = rand() % 2;
+    m_TimeBetweenShots = float(rand() % 15 + m_RandSeed);
+    m_AccuracyModifier = float(rand() % 2);
     m_AccuracyModifier += 0 + static_cast<float>(rand()) / static_cast<float>(RAND_MAX / 10);
 }
