@@ -146,6 +146,8 @@
   <ItemGroup>
     <ClCompile Include="05 Space Invaders ++.cpp" />
     <ClCompile Include="BitmapStore.cpp" />
+    <ClCompile Include="BlueprintObjectParser.cpp" />
+    <ClCompile Include="BulletSpawner.cpp" />
     <ClCompile Include="BulletUpdateComponent.cpp" />
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="ColliderComponent.cpp" />
@@ -153,6 +155,9 @@
     <ClCompile Include="GameEngine.cpp" />
     <ClCompile Include="GameInputHandler.cpp" />
     <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="GameObjectBlueprint.cpp" />
+    <ClCompile Include="GameObjectFactoryPlayMode.cpp" />
+    <ClCompile Include="GameObjectSharer.cpp" />
     <ClCompile Include="GameOverInputHandler.cpp" />
     <ClCompile Include="GameOverUIPanel.cpp" />
     <ClCompile Include="GameScreen.cpp" />
@@ -160,7 +165,10 @@
     <ClCompile Include="GraphicsComponent.cpp" />
     <ClCompile Include="InputHandler.cpp" />
     <ClCompile Include="InvaderUpdateComponent.cpp" />
+    <ClCompile Include="LevelManager.cpp" />
+    <ClCompile Include="ObjectTags.cpp" />
     <ClCompile Include="PlayerUpdateComponent.cpp" />
+    <ClCompile Include="PlayModeObjectLoader.cpp" />
     <ClCompile Include="RectColliderComponent.cpp" />
     <ClCompile Include="Screen.cpp" />
     <ClCompile Include="ScreenManager.cpp" />
@@ -176,6 +184,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BitmapStore.h" />
+    <ClInclude Include="BlueprintObjectParser.h" />
+    <ClInclude Include="BulletSpawner.h" />
     <ClInclude Include="BulletUpdateComponent.h" />
     <ClInclude Include="Button.h" />
     <ClInclude Include="ColliderComponent.h" />
@@ -184,6 +194,9 @@
     <ClInclude Include="GameEngine.h" />
     <ClInclude Include="GameInputHandler.h" />
     <ClInclude Include="GameObject.h" />
+    <ClInclude Include="GameObjectBlueprint.h" />
+    <ClInclude Include="GameObjectFactoryPlayMode.h" />
+    <ClInclude Include="GameObjectSharer.h" />
     <ClInclude Include="GameOverInputHandler.h" />
     <ClInclude Include="GameOverUIPanel.h" />
     <ClInclude Include="GameScreen.h" />
@@ -191,7 +204,10 @@
     <ClInclude Include="GraphicsComponent.h" />
     <ClInclude Include="InputHandler.h" />
     <ClInclude Include="InvaderUpdateComponent.h" />
+    <ClInclude Include="LevelManager.h" />
+    <ClInclude Include="ObjectTags.h" />
     <ClInclude Include="PlayerUpdateComponent.h" />
+    <ClInclude Include="PlayModeObjectLoader.h" />
     <ClInclude Include="RectColliderComponent.h" />
     <ClInclude Include="Screen.h" />
     <ClInclude Include="ScreenManager.h" />

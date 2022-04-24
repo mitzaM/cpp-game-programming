@@ -102,18 +102,16 @@ std::shared_ptr<Component> GameObject::getComponentByTypeAndSpecificType(std::st
         }
     }
 
-    #ifdef debuggingErrors
-    cout << "GameObject.cpp::getComponentByTypeAndSpecificType-" << "COMPONENT NOT FOUND ERROR!" << endl;
-    #endif // debuggingErrors
+    #ifdef debuggingOnConsole
+    std::cout << "GameObject.cpp::getComponentByTypeAndSpecificType - COMPONENT NOT FOUND ERROR!" << std::endl;
+    #endif // debuggingOnConsole
 
     return m_Components[0];
 }
 
 sf::FloatRect& GameObject::getEncompassingRectCollider()
 {
-    if (m_HasCollider) {
-        return std::static_pointer_cast<RectColliderComponent>(m_Components[m_FirstRectColliderComponentLocation])->getColliderRectF();
-    }
+    return std::static_pointer_cast<RectColliderComponent>(m_Components[m_FirstRectColliderComponentLocation])->getColliderRectF();
 }
 
 std::string GameObject::getEncompassingRectColliderTag()
