@@ -10,6 +10,13 @@
 #include "WorldState.h"
 
 
+void PhysicsEnginePlayMode::initialize(GameObjectSharer& gos) {
+    m_PUC = std::static_pointer_cast<PlayerUpdateComponent>(
+        gos.findFirstObjectWithTag("Player").getComponentByTypeAndSpecificType("update", "player")
+    );
+    m_Player = &gos.findFirstObjectWithTag("Player");
+}
+
 void PhysicsEnginePlayMode::detectInvaderCollisions(std::vector<GameObject>& objects, const std::vector<int>& bulletPositions)
 {
     sf::Vector2f offScreen(-1, -1);
@@ -31,7 +38,6 @@ void PhysicsEnginePlayMode::detectInvaderCollisions(std::vector<GameObject>& obj
         }
     }
 }
-
 
 void PhysicsEnginePlayMode::detectPlayerCollisionsAndInvaderDirection(std::vector<GameObject>& objects, const std::vector<int>& bulletPositions)
 {
@@ -86,4 +92,21 @@ void PhysicsEnginePlayMode::detectPlayerCollisionsAndInvaderDirection(std::vecto
             }
         }
     }
+}
+
+void PhysicsEnginePlayMode::handleInvaderDirection()
+{
+    if (m_InvaderHitWallThisFrame) {
+        m_NeedToDropDownAndReverse = true;
+        m_InvaderHitWallThisFrame = false;
+    } else {
+        m_NeedToDropDownAndReverse = false;
+    }
+}
+
+void PhysicsEnginePlayMode::detectCollisions(std::vector<GameObject>& objects, const std::vector<int>& bulletPositions)
+{
+    detectInvaderCollisions(objects, bulletPositions);
+    detectPlayerCollisionsAndInvaderDirection(objects, bulletPositions);
+    handleInvaderDirection();
 }
