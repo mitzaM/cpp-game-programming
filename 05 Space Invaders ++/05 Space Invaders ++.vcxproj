@@ -167,6 +167,7 @@
     <ClCompile Include="InvaderUpdateComponent.cpp" />
     <ClCompile Include="LevelManager.cpp" />
     <ClCompile Include="ObjectTags.cpp" />
+    <ClCompile Include="PhysicsEnginePlayMode.cpp" />
     <ClCompile Include="PlayerUpdateComponent.cpp" />
     <ClCompile Include="PlayModeObjectLoader.cpp" />
     <ClCompile Include="RectColliderComponent.cpp" />
@@ -206,6 +207,7 @@
     <ClInclude Include="InvaderUpdateComponent.h" />
     <ClInclude Include="LevelManager.h" />
     <ClInclude Include="ObjectTags.h" />
+    <ClInclude Include="PhysicsEnginePlayMode.h" />
     <ClInclude Include="PlayerUpdateComponent.h" />
     <ClInclude Include="PlayModeObjectLoader.h" />
     <ClInclude Include="RectColliderComponent.h" />
