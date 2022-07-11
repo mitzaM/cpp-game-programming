@@ -6,6 +6,7 @@
 #include "BulletSpawner.h"
 #include "GameInputHandler.h"
 #include "GameOverInputHandler.h"
+#include "PhysicsEnginePlayMode.h"
 #include "Screen.h"
 
 
@@ -14,6 +15,7 @@ class GameScreen : public Screen, public BulletSpawner
 private:
     ScreenManagerRemoteControl* m_ScreenManagerRemoteControl;
     std::shared_ptr<GameInputHandler> m_GIH;
+    PhysicsEnginePlayMode m_PhysicsEnginePlayMode;
 
     int m_NumberInvadersInWorldFile = 0;
 
